@@ -1,1 +1,81 @@
-spring.application.name=backend
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.team4.demo: DEBUG
+
+security:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration-time: 86400000 # 1 day in milliseconds
+    token-prefix: Bearer
+    header-string: Authorization
+  oauth2:
+    client:
+      registration:
+        google:
+          clientId: ${GOOGLE_CLIENT_ID}
+          clientSecret: ${GOOGLE_CLIENT_SECRET}
+          scope:
+            - email
+            - profile
+            - openid
+        kakao:
+          clientId: ${KAKAO_CLIENT_ID}
+          clientSecret: ${KAKAO_CLIENT_SECRET}
+          clientAuthenticationMethod: post
+          authorizationGrantType: authorization_code
+          redirectUri: "${APP_BASE_URL}/login/oauth2/code/kakao"
+          scope: profile_nickname, profile_image, account_email
+          clientName: Kakao
+        instagram:
+          clientId: ${INSTAGRAM_CLIENT_ID}
+          clientSecret: ${INSTAGRAM_CLIENT_SECRET}
+          clientAuthenticationMethod: post
+          authorizationGrantType: authorization_code
+          redirectUri: "${APP_BASE_URL}/login/oauth2/code/instagram"
+          scope:
+            - user_profile
+            - user_media
+          clientName: Instagram
+      provider:
+        google:
+          token-uri: https://oauth2.googleapis.com/token
+          authorization-uri: https://accounts.google.com/o/oauth2/auth
+          user-info-uri: https://www.googleapis.com/oauth2/v1/userinfo
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+        kakao:
+          authorizationUri: https://kauth.kakao.com/oauth/authorize
+          tokenUri: https://kauth.kakao.com/oauth/token
+          userInfoUri: https://kapi.kakao.com/v2/user/me
+          userNameAttribute: id
+        instagram:
+          authorizationUri: https://api.instagram.com/oauth/authorize
+          tokenUri: https://api.instagram.com/oauth/access_token
+          userInfoUri: https://graph.instagram.com/me?fields=id,username,account_type
+          userNameAttribute: id
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
