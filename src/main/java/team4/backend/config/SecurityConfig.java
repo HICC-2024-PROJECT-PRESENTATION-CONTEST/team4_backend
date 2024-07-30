@@ -1,0 +1,92 @@
+package team4.backend.config;
+
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import team4.backend.security.JwtAuthenticationEntryPoint;
+import team4.backend.security.JwtAuthenticationFilter;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+	@Autowired
+	private UserDetailsService userDetailsService;
+
+	@Autowired
+	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+	@Autowired
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http
+			.csrf(AbstractHttpConfigurer::disable)
+			.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+			.exceptionHandling(exceptionHandling ->
+				exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint)
+			)
+			.sessionManagement(sessionManagement ->
+				sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			)
+			.authorizeHttpRequests(authorize ->
+				authorize
+					.requestMatchers("/api/users/**", "/oauth2/**").permitAll()
+					.anyRequest().authenticated()
+			)
+			.oauth2Login(oauth2 -> oauth2
+				.defaultSuccessUrl("/loginSuccess")
+				.failureUrl("/loginFailure")
+			);
+
+		// Add the JWT token filter
+		http.addFilterAfter(jwtAuthenticationFilter, OAuth2LoginAuthenticationFilter.class);
+
+		return http.build();
+	}
+
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowCredentials(true);
+		configuration.addAllowedOriginPattern("*");
+		configuration.addAllowedHeader("*");
+		configuration.addAllowedMethod("*");
+		configuration.setExposedHeaders(Arrays.asList("Authorization"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+		AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+		authenticationManagerBuilder
+			.userDetailsService(userDetailsService)
+			.passwordEncoder(passwordEncoder());
+		return authenticationManagerBuilder.build();
+	}
+}
