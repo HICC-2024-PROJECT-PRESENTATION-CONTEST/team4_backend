@@ -1,9 +1,8 @@
 package team4.backend.entity;
 
+import java.util.Set;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Set;
 
 @Data
 @Builder
@@ -30,15 +29,8 @@ public class User {
 	@Column(name = "provider_id")
 	private String providerId;
 
-	@Column(nullable = false)
-	private String password;
-
-	@Column(nullable = false)
-	private boolean enabled;
-
-	@Column(name = "verification_token")
-	private String verificationToken;
-
-	@Column(name = "token_expiration_time")
-	private Long tokenExpirationTime;
+	// 테스트용 생성자
+	public User(String email) {
+		this.email = email;
+	}
 }

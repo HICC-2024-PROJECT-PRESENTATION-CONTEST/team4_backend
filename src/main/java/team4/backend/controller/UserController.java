@@ -1,12 +1,9 @@
 package team4.backend.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
 import team4.backend.entity.User;
 import team4.backend.service.UserService;
 
@@ -17,30 +14,19 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@PostMapping("/register")
-	public ResponseEntity<User> register(@RequestBody User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		user.setEnabled(false); // 이메일 인증 전까지는 계정 비활성화
-		User savedUser = userService.save(user);
-		return ResponseEntity.ok(savedUser);
+	// 사용자 정보 조회
+	@GetMapping("/profile")
+	public ResponseEntity<User> getUserProfile(Authentication authentication) {
+		String email = authentication.getName();
+		User user = userService.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+		return ResponseEntity.ok(user);
 	}
 
-	@GetMapping("/confirm")
-	public ResponseEntity<String> confirmUser(@RequestParam String token) {
-		Optional<User> userOptional = userService.findByVerificationToken(token);
-		if (userOptional.isPresent()) {
-			User user = userOptional.get();
-			if (user.getTokenExpirationTime() > System.currentTimeMillis()) {
-				userService.enableUser(user);
-				return ResponseEntity.ok("User confirmed successfully");
-			} else {
-				return ResponseEntity.badRequest().body("Token expired");
-			}
-		} else {
-			return ResponseEntity.badRequest().body("Invalid token");
-		}
+	// 사용자 탈퇴
+	@DeleteMapping("/profile")
+	public ResponseEntity<String> deleteUserProfile(Authentication authentication) {
+		String email = authentication.getName();
+		userService.deleteByEmail(email);
+		return ResponseEntity.ok("User deleted successfully");
 	}
 }

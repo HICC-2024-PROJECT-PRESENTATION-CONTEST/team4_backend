@@ -15,11 +15,6 @@ spring:
 server:
   port: 8080
 
-logging:
-  level:
-    root: INFO
-    com.team4.demo: DEBUG
-
 security:
   jwt:
     secret: ${JWT_SECRET}
@@ -70,12 +65,3 @@ security:
           tokenUri: https://api.instagram.com/oauth/access_token
           userInfoUri: https://graph.instagram.com/me?fields=id,username,account_type
           userNameAttribute: id
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always

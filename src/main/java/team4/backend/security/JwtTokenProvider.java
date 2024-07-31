@@ -1,20 +1,38 @@
 package team4.backend.security;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
+import java.util.Base64;
 import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
 
-	@Value("${security.jwt.secret}")
-	private String jwtSecret;
+	private final SecretKey jwtSecret;
 
 	@Value("${security.jwt.expiration-time}")
 	private int jwtExpirationInMs;
+
+	public JwtTokenProvider(@Value("${security.jwt.secret}") String jwtSecret) {
+		byte[] keyBytes = Base64.getDecoder().decode(jwtSecret);
+		this.jwtSecret = Keys.hmacShaKeyFor(keyBytes);
+	}
+
+	public JwtTokenProvider() {
+		this.jwtSecret = null; // 또는 적절한 기본값으로 설정
+	}
+
+	// 테스트를 위한 생성자
+	public JwtTokenProvider(String jwtSecret, int jwtExpirationInMs) {
+		byte[] keyBytes = Base64.getDecoder().decode(jwtSecret);
+		this.jwtSecret = Keys.hmacShaKeyFor(keyBytes);
+		this.jwtExpirationInMs = jwtExpirationInMs;
+	}
 
 	public String generateToken(Authentication authentication) {
 		CustomOAuth2User userPrincipal = (CustomOAuth2User) authentication.getPrincipal();
@@ -23,16 +41,17 @@ public class JwtTokenProvider {
 		Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
 		return Jwts.builder()
-			.setSubject(Long.toString(userPrincipal.getUser().getId()))
+			.setSubject(userPrincipal.getUser().getEmail())
 			.setIssuedAt(new Date())
 			.setExpiration(expiryDate)
-			.signWith(SignatureAlgorithm.HS512, jwtSecret)
+			.signWith(jwtSecret, SignatureAlgorithm.HS512)
 			.compact();
 	}
 
 	public String getUserEmailFromJWT(String token) {
-		Claims claims = Jwts.parser()
+		Claims claims = Jwts.parserBuilder()
 			.setSigningKey(jwtSecret)
+			.build()
 			.parseClaimsJws(token)
 			.getBody();
 
@@ -40,8 +59,9 @@ public class JwtTokenProvider {
 	}
 
 	public Long getUserIdFromJWT(String token) {
-		Claims claims = Jwts.parser()
+		Claims claims = Jwts.parserBuilder()
 			.setSigningKey(jwtSecret)
+			.build()
 			.parseClaimsJws(token)
 			.getBody();
 
@@ -50,10 +70,9 @@ public class JwtTokenProvider {
 
 	public boolean validateToken(String authToken) {
 		try {
-			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+			Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(authToken);
 			return true;
-		} catch (SignatureException | MalformedJwtException | ExpiredJwtException |
-				 UnsupportedJwtException | IllegalArgumentException ex) {
+		} catch (JwtException | IllegalArgumentException ex) {
 			return false;
 		}
 	}

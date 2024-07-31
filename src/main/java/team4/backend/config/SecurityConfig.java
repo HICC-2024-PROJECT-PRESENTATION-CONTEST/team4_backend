@@ -1,7 +1,5 @@
 package team4.backend.config;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,14 +12,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
 import team4.backend.security.JwtAuthenticationEntryPoint;
 import team4.backend.security.JwtAuthenticationFilter;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -49,16 +48,16 @@ public class SecurityConfig {
 			)
 			.authorizeHttpRequests(authorize ->
 				authorize
-					.requestMatchers("/api/users/**", "/oauth2/**").permitAll()
+					.requestMatchers("/api/auth/**", "/oauth2/**").permitAll()
 					.anyRequest().authenticated()
 			)
 			.oauth2Login(oauth2 -> oauth2
-				.defaultSuccessUrl("/loginSuccess")
+				.defaultSuccessUrl("/oauth2-login-success")
 				.failureUrl("/loginFailure")
 			);
 
 		// Add the JWT token filter
-		http.addFilterAfter(jwtAuthenticationFilter, OAuth2LoginAuthenticationFilter.class);
+		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}

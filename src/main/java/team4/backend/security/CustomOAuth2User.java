@@ -7,7 +7,6 @@ import team4.backend.entity.Role;
 import team4.backend.entity.User;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -36,10 +35,6 @@ public class CustomOAuth2User implements OAuth2User {
 
 	@Override
 	public String getName() {
-		return user.getEmail();
-	}
-
-	public String getEmail() {
 		return user.getEmail();
 	}
 

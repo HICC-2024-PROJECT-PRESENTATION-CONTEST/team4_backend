@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+logging:
+  level:
+    root: INFO
+    com.team4.demo: DEBUG
+
+security:
+  jwt:
+    secret: U29tZVNlY3JldEtleUZvckp3dFNlY3JldFRlc3RpbmdNYWtlU3VyZUl0SXNFbmNvZGVkVG8gTWVldFJlcXVpcmVtZW50cw== # 512비트 이상 Base64 인코딩된 키
+    expiration-time: 60000 # 1 minute in milliseconds
+    token-prefix: Bearer
+    header-string: Authorization

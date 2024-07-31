@@ -1,9 +1,16 @@
 package team4.backend.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import team4.backend.entity.User;
 import team4.backend.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -13,6 +20,12 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private UserDetailsService userDetailsService;
+
 	public User save(User user) {
 		return userRepository.save(user);
 	}
@@ -21,16 +34,17 @@ public class UserService {
 		return userRepository.findByEmail(email);
 	}
 
-	public Optional<User> findByProviderAndProviderId(String provider, String providerId) {
-		return userRepository.findByProviderAndProviderId(provider, providerId);
+	public void deleteByEmail(String email) {
+		userRepository.deleteByEmail(email);
 	}
 
-	public Optional<User> findByVerificationToken(String token) {
-		return userRepository.findByVerificationToken(token);
-	}
-
-	public void enableUser(User user) {
-		user.setEnabled(true);
-		userRepository.save(user);
+	public Authentication authenticateUser(String email, String password) throws AuthenticationException {
+		UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+		if (userDetails == null) {
+			throw new UsernameNotFoundException("User not found with email: " + email);
+		}
+		Authentication authentication = authenticationManager.authenticate(
+			new UsernamePasswordAuthenticationToken(email, password, userDetails.getAuthorities()));
+		return authentication;
 	}
 }
