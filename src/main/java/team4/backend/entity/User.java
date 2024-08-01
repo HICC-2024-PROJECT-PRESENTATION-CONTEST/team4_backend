@@ -24,13 +24,14 @@ public class User {
 	private Set<Role> role;
 
 	@Column(name = "provider")
-	private String provider;
+	private String provider; // OAuth2 제공자 이름
 
 	@Column(name = "provider_id")
-	private String providerId;
+	private String providerId; // OAuth2 사용자 ID
 
 	// 테스트용 생성자
-	public User(String email) {
+	public User(String email, Set<Role> role) {
 		this.email = email;
+		this.role = role;
 	}
 }

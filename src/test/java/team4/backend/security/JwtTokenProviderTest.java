@@ -25,7 +25,7 @@ public class JwtTokenProviderTest {
 	private static final String TEST_SECRET = Base64.getEncoder().encodeToString(Keys.secretKeyFor(SignatureAlgorithm.HS512).getEncoded());
 	private static final int EXPIRATION_TIME_MS = 60000;
 
-	@InjectMocks
+	@InjectMocks // JwtTokenProvider 인스턴스를 생성하고 주입
 	private JwtTokenProvider jwtTokenProvider;
 
 	@Mock
@@ -37,13 +37,13 @@ public class JwtTokenProviderTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
-	@Test
+	@Test // JWT 토큰 생성 테스트
 	public void testGenerateToken() {
 		Set<Role> roles = new HashSet<>();
 		roles.add(Role.USER);
 
 		team4.backend.entity.User user = team4.backend.entity.User.builder()
-			.id(1L) // 수동으로 ID 설정
+			.id(1L)
 			.email("test@example.com")
 			.role(roles)
 			.build();
@@ -56,13 +56,13 @@ public class JwtTokenProviderTest {
 		assertNotNull(token);
 	}
 
-	@Test
+	@Test // JWT 토큰 유효성 검사 테스트
 	public void testValidateToken() {
 		Set<Role> roles = new HashSet<>();
 		roles.add(Role.USER);
 
 		team4.backend.entity.User user = team4.backend.entity.User.builder()
-			.id(1L) // 수동으로 ID 설정
+			.id(1L)
 			.email("test@example.com")
 			.role(roles)
 			.build();
@@ -75,13 +75,13 @@ public class JwtTokenProviderTest {
 		assertTrue(jwtTokenProvider.validateToken(token));
 	}
 
-	@Test
+	@Test // JWT 토큰에서 사용자 이메일 추출 테스트
 	public void testGetUserEmailFromJWT() {
 		Set<Role> roles = new HashSet<>();
 		roles.add(Role.USER);
 
 		team4.backend.entity.User user = team4.backend.entity.User.builder()
-			.id(1L) // 수동으로 ID 설정
+			.id(1L)
 			.email("test@example.com")
 			.role(roles)
 			.build();

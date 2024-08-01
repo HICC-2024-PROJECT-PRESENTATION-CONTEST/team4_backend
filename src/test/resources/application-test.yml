@@ -12,14 +12,20 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
 
-logging:
-  level:
-    root: INFO
-    com.team4.demo: DEBUG
-
 security:
-  jwt:
-    secret: U29tZVNlY3JldEtleUZvckp3dFNlY3JldFRlc3RpbmdNYWtlU3VyZUl0SXNFbmNvZGVkVG8gTWVldFJlcXVpcmVtZW50cw== # 512비트 이상 Base64 인코딩된 키
-    expiration-time: 60000 # 1 minute in milliseconds
-    token-prefix: Bearer
-    header-string: Authorization
+  oauth2:
+    client:
+      registration:
+        google:
+          clientId: google-client-id
+          clientSecret: google-client-secret
+          scope: email, profile
+          authorization-grant-type: authorization_code
+          redirectUri: "{baseUrl}/login/oauth2/code/{registrationId}"
+          clientName: Google
+      provider:
+        google:
+          authorizationUri: https://accounts.google.com/o/oauth2/auth
+          tokenUri: https://oauth2.googleapis.com/token
+          userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
+          userNameAttribute: id

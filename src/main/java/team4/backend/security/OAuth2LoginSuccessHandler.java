@@ -1,14 +1,16 @@
 package team4.backend.security;
 
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import java.io.IOException;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
-
-public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
+@Component
+public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
 	private final JwtTokenProvider jwtTokenProvider;
 
@@ -17,9 +19,12 @@ public class OAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
 	}
 
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-		String token = jwtTokenProvider.generateToken(authentication);
-		response.setHeader("Authorization", "Bearer " + token);
-		response.sendRedirect("/"); // 원하는 URL로 리디렉션
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+		// 인증 성공 시 JWT 토큰 생성
+		String jwt = jwtTokenProvider.generateToken(authentication);
+
+		// 응답 헤더에 JWT 토큰 추가
+		response.addHeader("Authorization", "Bearer " + jwt);
+		super.onAuthenticationSuccess(request, response, authentication);
 	}
 }

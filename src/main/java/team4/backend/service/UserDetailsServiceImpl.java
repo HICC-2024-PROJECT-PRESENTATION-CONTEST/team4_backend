@@ -23,13 +23,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		User user = userRepository.findByEmail(email)
 			.orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
+		// 사용자의 역할(Role)을 Spring Security에서 사용 가능한 권한 객체(SimpleGrantedAuthority)로 변환하여 리스트에 저장
 		List<SimpleGrantedAuthority> authorities = user.getRole().stream()
 			.map(role -> new SimpleGrantedAuthority(role.name()))
 			.collect(Collectors.toList());
 
 		return org.springframework.security.core.userdetails.User
 			.withUsername(user.getEmail())
-			.password("") // OAuth 로그인에서는 비밀번호가 필요 없음
+			.password("")
 			.authorities(authorities)
 			.accountExpired(false)
 			.accountLocked(false)

@@ -34,12 +34,14 @@ public class JwtTokenProvider {
 		this.jwtExpirationInMs = jwtExpirationInMs;
 	}
 
+	// JWT 토큰 생성
 	public String generateToken(Authentication authentication) {
 		CustomOAuth2User userPrincipal = (CustomOAuth2User) authentication.getPrincipal();
 
 		Date now = new Date();
 		Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
+		// JWT 토큰 생성 및 반환
 		return Jwts.builder()
 			.setSubject(userPrincipal.getUser().getEmail())
 			.setIssuedAt(new Date())
@@ -48,6 +50,7 @@ public class JwtTokenProvider {
 			.compact();
 	}
 
+	// JWT 토큰에서 사용자 이메일 추출
 	public String getUserEmailFromJWT(String token) {
 		Claims claims = Jwts.parserBuilder()
 			.setSigningKey(jwtSecret)
@@ -58,16 +61,7 @@ public class JwtTokenProvider {
 		return claims.getSubject();
 	}
 
-	public Long getUserIdFromJWT(String token) {
-		Claims claims = Jwts.parserBuilder()
-			.setSigningKey(jwtSecret)
-			.build()
-			.parseClaimsJws(token)
-			.getBody();
-
-		return Long.parseLong(claims.getSubject());
-	}
-
+	// JWT 토큰에서 사용자 이메일 추출
 	public boolean validateToken(String authToken) {
 		try {
 			Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(authToken);

@@ -17,7 +17,7 @@ server:
 
 security:
   jwt:
-    secret: ${JWT_SECRET}
+    secret: ${JWT_SECRET} # JWT 서명에 사용할 비밀 키, 환경 변수로 설정
     expiration-time: 86400000 # 1 day in milliseconds
     token-prefix: Bearer
     header-string: Authorization

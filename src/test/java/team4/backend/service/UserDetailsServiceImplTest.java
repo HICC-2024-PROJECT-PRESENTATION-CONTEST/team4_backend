@@ -34,7 +34,7 @@ public class UserDetailsServiceImplTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
-	@Test
+	@Test // 사용자 이름으로 사용자 로드 테스트
 	public void testLoadUserByUsername() {
 		Set<Role> roles = new HashSet<>();
 		roles.add(Role.USER);
@@ -47,7 +47,7 @@ public class UserDetailsServiceImplTest {
 		assertEquals("test@example.com", userDetails.getUsername());
 	}
 
-	@Test
+	@Test // 사용자 이름으로 사용자를 찾지 못했을 때의 테스트
 	public void testLoadUserByUsernameNotFound() {
 		when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
 

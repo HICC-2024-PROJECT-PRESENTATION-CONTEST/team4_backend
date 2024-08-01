@@ -19,21 +19,23 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import team4.backend.security.JwtAuthenticationEntryPoint;
 import team4.backend.security.JwtAuthenticationFilter;
+import team4.backend.security.JwtTokenProvider;
+import team4.backend.security.OAuth2LoginSuccessHandler;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private JwtTokenProvider jwtTokenProvider;
 
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
 	@Autowired
-	private JwtAuthenticationFilter jwtAuthenticationFilter;
+	private UserDetailsService userDetailsService;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -52,16 +54,27 @@ public class SecurityConfig {
 					.anyRequest().authenticated()
 			)
 			.oauth2Login(oauth2 -> oauth2
-				.defaultSuccessUrl("/oauth2-login-success")
+				.successHandler(oAuth2LoginSuccessHandler())
 				.failureUrl("/loginFailure")
 			);
 
 		// Add the JWT token filter
-		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
 
+	@Bean
+	public JwtAuthenticationFilter jwtAuthenticationFilter() {
+		return new JwtAuthenticationFilter(jwtTokenProvider, userDetailsService);
+	}
+
+	@Bean
+	public OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler() {
+		return new OAuth2LoginSuccessHandler(jwtTokenProvider);
+	}
+
+	// CORS 설정
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
@@ -69,17 +82,19 @@ public class SecurityConfig {
 		configuration.addAllowedOriginPattern("*");
 		configuration.addAllowedHeader("*");
 		configuration.addAllowedMethod("*");
-		configuration.setExposedHeaders(Arrays.asList("Authorization"));
+		configuration.setExposedHeaders(Collections.singletonList("Authorization"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
 
+	// PasswordEncoder 빈 정의 (BCrypt 암호화 방식 사용)
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
+	// AuthenticationManager
 	@Bean
 	public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
 		AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);

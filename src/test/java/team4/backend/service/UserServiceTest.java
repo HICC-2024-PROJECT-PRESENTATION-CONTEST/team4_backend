@@ -29,7 +29,7 @@ public class UserServiceTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
-	@Test
+	@Test // 사용자 저장 테스트
 	public void testSaveUser() {
 		User user = User.builder().email("test@example.com").build();
 
@@ -39,7 +39,7 @@ public class UserServiceTest {
 		assertEquals("test@example.com", savedUser.getEmail());
 	}
 
-	@Test
+	@Test // 이메일로 사용자 찾기 테스트
 	public void testFindByEmail() {
 		User user = User.builder().email("test@example.com").build();
 
