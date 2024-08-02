@@ -15,16 +15,16 @@ public class JwtTokenProvider {
 
 	private final SecretKey jwtSecret;
 
-	@Value("${security.jwt.expiration-time}")
+	@Value("${spring.security.jwt.expiration-time}")
 	private int jwtExpirationInMs;
 
-	public JwtTokenProvider(@Value("${security.jwt.secret}") String jwtSecret) {
+	public JwtTokenProvider(@Value("${spring.security.jwt.secret}") String jwtSecret) {
 		byte[] keyBytes = Base64.getDecoder().decode(jwtSecret);
 		this.jwtSecret = Keys.hmacShaKeyFor(keyBytes);
 	}
 
 	public JwtTokenProvider() {
-		this.jwtSecret = null; // 또는 적절한 기본값으로 설정
+		this.jwtSecret = null;
 	}
 
 	// 테스트를 위한 생성자

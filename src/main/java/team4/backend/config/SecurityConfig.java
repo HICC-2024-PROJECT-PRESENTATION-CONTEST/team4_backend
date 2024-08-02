@@ -12,6 +12,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -37,6 +39,12 @@ public class SecurityConfig {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+	@Autowired
+	private ClientRegistrationRepository clientRegistrationRepository;
+
+	@Autowired
+	private OAuth2AuthorizedClientService authorizedClientService;
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
@@ -56,6 +64,8 @@ public class SecurityConfig {
 			.oauth2Login(oauth2 -> oauth2
 				.successHandler(oAuth2LoginSuccessHandler())
 				.failureUrl("/loginFailure")
+				.clientRegistrationRepository(clientRegistrationRepository)
+				.authorizedClientService(authorizedClientService)
 			);
 
 		// Add the JWT token filter
