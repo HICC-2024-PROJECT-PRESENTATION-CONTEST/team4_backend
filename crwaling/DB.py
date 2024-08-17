@@ -1,33 +1,3 @@
-# import MySQLdb
-
-# conn = MySQLdb.connect(
-#   user = "root",
-#   passwd = "1234",
-#   host = "127.0.0.1",
-#   db = "mooDB",
-#   charset = "utf8"
-# )
-
-# cur = conn.cursor() # DB에서 SQL문을 실행하거나 실행된 결과를 돌려받는 통로역할.
-
-# cur.execute("""CREATE TABLE IF NOT EXISTS Products ( 
-#     id INT AUTO_INCREMENT PRIMARY KEY, 
-#     Brand VARCHAR(255), 
-#     ProductName VARCHAR(255),
-#     Price DECIMAL(10, 2),
-#     DiscountRate DECIMAL(5, 2),
-#     OriginalPrice DECIMAL(10, 2),
-#     ProductURL TEXT,
-#     ImageURL TEXT
-# );""")
-
-# # cur.execute("insert into products values()") # 데이터 Insert,이 작업 반복해서 채우면 됨
-
-
-# conn.commit()
-
-# conn.close()
-
 import MySQLdb
 
 def get_db_connection():
@@ -47,6 +17,7 @@ def create_table():
     # DB에서 SQL문을 실행하거나 실행된 결과를 돌려받는 통로역할.
     cur.execute("""CREATE TABLE IF NOT EXISTS Products (  
         id INT AUTO_INCREMENT PRIMARY KEY, 
+        Category VARCHAR(255),
         Brand VARCHAR(255), 
         ProductName VARCHAR(255),
         Price VARCHAR(255),
@@ -60,3 +31,24 @@ def create_table():
     conn.commit()
     conn.close()
 
+def insert_or_update_products(products):
+    conn, cur = get_db_connection()
+    
+    query = """
+    INSERT INTO Products (Category, Brand, ProductName, Price, DiscountRate, OriginalPrice, ProductURL, ImageURL)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+    ON DUPLICATE KEY UPDATE
+    Price = VALUES(Price),
+    DiscountRate = VALUES(DiscountRate),
+    OriginalPrice = VALUES(OriginalPrice),
+    ProductURL = VALUES(ProductURL),
+    ImageURL = VALUES(ImageURL);
+    """
+    
+    # Execute insert or update for each product in the list
+    for product in products:
+        cur.execute(query, product)
+    
+    conn.commit()
+    conn.close()
+    
