@@ -1,4 +1,6 @@
 import MySQLdb
+import numpy as np
+import pandas as pd
 
 def get_db_connection():
     conn = MySQLdb.connect(
@@ -16,10 +18,9 @@ def create_table():
     
     # DB에서 SQL문을 실행하거나 실행된 결과를 돌려받는 통로역할.
     cur.execute("""CREATE TABLE IF NOT EXISTS Products (  
-        id INT AUTO_INCREMENT PRIMARY KEY, 
         Category VARCHAR(255),
         Brand VARCHAR(255), 
-        ProductName VARCHAR(255),
+        ProductName VARCHAR(255) PRIMARY KEY,
         Price VARCHAR(255),
         DiscountRate VARCHAR(255),
         OriginalPrice VARCHAR(255),
@@ -52,3 +53,16 @@ def insert_or_update_products(products):
     conn.commit()
     conn.close()
     
+
+def get_all_data():
+    conn, cur = get_db_connection()
+
+    query = "SELECT * FROM products;"
+
+    # pandas의 read_sql() 함수를 사용하여 쿼리 결과를 DataFrame으로 변환
+    df = pd.read_sql(query, conn)
+
+    conn.commit()
+    conn.close()
+    
+    return df
