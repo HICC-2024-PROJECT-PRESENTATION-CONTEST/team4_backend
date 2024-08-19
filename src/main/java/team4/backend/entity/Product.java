@@ -57,5 +57,5 @@ public class Product {
 
 
   @OneToMany(mappedBy = "product")
-  List<PriceHistory> priceHistories = new ArrayList<>();
+  List<PriceHistory> priceHistoryList = new ArrayList<>();
 }

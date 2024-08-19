@@ -4,8 +4,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import team4.backend.entity.PriceHistory;
 import team4.backend.entity.Product;
 
 @Getter
@@ -23,6 +25,8 @@ public class ProductResponseDto {
   private String imageURL;
   private String productCode;
 
+  private List<PriceHistory> priceHistoryList;
+
 
   public ProductResponseDto(Product product){
     this.id = product.getId();
@@ -34,5 +38,6 @@ public class ProductResponseDto {
     this.likes = product.getLikes();
     this.productURL = product.getProductURL();
     this.productCode = product.getProductCode();
+    this.priceHistoryList = product.getPriceHistoryList();
   }
 }
