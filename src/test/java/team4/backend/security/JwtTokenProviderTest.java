@@ -9,15 +9,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.core.Authentication;
 import org.springframework.test.context.ActiveProfiles;
-import team4.backend.entity.Role;
 
 import java.util.Base64;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
 public class JwtTokenProviderTest {
@@ -39,18 +34,10 @@ public class JwtTokenProviderTest {
 
 	@Test // JWT 토큰 생성 테스트
 	public void testGenerateToken() {
-		Set<Role> roles = new HashSet<>();
-		roles.add(Role.USER);
 
 		team4.backend.entity.User user = team4.backend.entity.User.builder()
-			.id(1L)
 			.email("test@example.com")
-			.role(roles)
 			.build();
-
-		CustomOAuth2User customOAuth2User = new CustomOAuth2User(user, Collections.emptyMap());
-
-		when(authentication.getPrincipal()).thenReturn(customOAuth2User);
 
 		String token = jwtTokenProvider.generateToken(authentication);
 		assertNotNull(token);
@@ -58,18 +45,11 @@ public class JwtTokenProviderTest {
 
 	@Test // JWT 토큰 유효성 검사 테스트
 	public void testValidateToken() {
-		Set<Role> roles = new HashSet<>();
-		roles.add(Role.USER);
 
 		team4.backend.entity.User user = team4.backend.entity.User.builder()
-			.id(1L)
+			.userId(1L)
 			.email("test@example.com")
-			.role(roles)
 			.build();
-
-		CustomOAuth2User customOAuth2User = new CustomOAuth2User(user, Collections.emptyMap());
-
-		when(authentication.getPrincipal()).thenReturn(customOAuth2User);
 
 		String token = jwtTokenProvider.generateToken(authentication);
 		assertTrue(jwtTokenProvider.validateToken(token));
@@ -77,18 +57,11 @@ public class JwtTokenProviderTest {
 
 	@Test // JWT 토큰에서 사용자 이메일 추출 테스트
 	public void testGetUserEmailFromJWT() {
-		Set<Role> roles = new HashSet<>();
-		roles.add(Role.USER);
 
 		team4.backend.entity.User user = team4.backend.entity.User.builder()
-			.id(1L)
+			.userId(1L)
 			.email("test@example.com")
-			.role(roles)
 			.build();
-
-		CustomOAuth2User customOAuth2User = new CustomOAuth2User(user, Collections.emptyMap());
-
-		when(authentication.getPrincipal()).thenReturn(customOAuth2User);
 
 		String token = jwtTokenProvider.generateToken(authentication);
 		String email = jwtTokenProvider.getUserEmailFromJWT(token);

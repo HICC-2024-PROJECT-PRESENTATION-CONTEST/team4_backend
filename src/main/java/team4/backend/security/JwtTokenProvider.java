@@ -36,14 +36,12 @@ public class JwtTokenProvider {
 
 	// JWT 토큰 생성
 	public String generateToken(Authentication authentication) {
-		CustomOAuth2User userPrincipal = (CustomOAuth2User) authentication.getPrincipal();
 
 		Date now = new Date();
 		Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
 		// JWT 토큰 생성 및 반환
 		return Jwts.builder()
-			.setSubject(userPrincipal.getUser().getEmail())
 			.setIssuedAt(new Date())
 			.setExpiration(expiryDate)
 			.signWith(jwtSecret, SignatureAlgorithm.HS512)
