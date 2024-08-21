@@ -1,6 +1,5 @@
 package team4.backend.service;
 
-import team4.backend.entity.Role;
 import team4.backend.entity.User;
 import team4.backend.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,10 +35,8 @@ public class UserDetailsServiceImplTest {
 
 	@Test // 사용자 이름으로 사용자 로드 테스트
 	public void testLoadUserByUsername() {
-		Set<Role> roles = new HashSet<>();
-		roles.add(Role.USER);
 
-		User user = User.builder().email("test@example.com").role(roles).build();
+		User user = User.builder().email("test@example.com").build();
 
 		when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
 
