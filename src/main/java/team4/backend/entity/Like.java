@@ -1,5 +1,7 @@
 package team4.backend.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,4 +26,11 @@ public class Like {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id", nullable = false)
 	private Product product;
+
+	@Column(nullable = false)
+	private Integer initialPrice;  // 찜한 시점의 가격
+
+	@Column
+	private LocalDateTime lastNotificationTime;  // 마지막 알림 발송 시간
+
 }

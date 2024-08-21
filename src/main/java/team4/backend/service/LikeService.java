@@ -11,6 +11,7 @@ import team4.backend.repository.LikeRepository;
 import team4.backend.repository.ProductRepository;
 import team4.backend.repository.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,6 +48,7 @@ public class LikeService {
 		Like like = Like.builder()
 			.user(user)
 			.product(product)
+			.initialPrice(product.getPrice())
 			.build();
 
 		likeRepository.save(like);
@@ -78,6 +80,7 @@ public class LikeService {
 	}
 
 	// 찜한 상품의 가격 하락 시 사용자에게 이메일 알림
+	@Transactional
 	public void notifyPriceDrop(Long productId) {
 		Product product = productRepository.findById(productId)
 			.orElseThrow(() -> new RuntimeException("Product not found"));
@@ -85,16 +88,42 @@ public class LikeService {
 		List<Like> likes = likeRepository.findAllByProduct(product);
 
 		for (Like like : likes) {
-			User user = like.getUser();
-			String subject = "찜한 상품의 가격이 하락했습니다!";
-			String text = String.format("안녕하세요 %s님, 찜한 상품 '%s'의 가격이 하락했습니다. 현재 가격은 %d원입니다.",
-				user.getEmail(), product.getProductName(), product.getPrice());
+			if (product.getPrice() < like.getInitialPrice()) {
+				boolean shouldSendNotification = true;
+				if (like.getLastNotificationTime() != null) {
+					LocalDateTime now = LocalDateTime.now();
+					shouldSendNotification = like.getLastNotificationTime().plusDays(3).isBefore(now);
+				}
 
-			try {
-				emailService.sendEmail(user.getEmail(), subject, text);
-			} catch (MessagingException e) {
-				e.printStackTrace();
+				if (shouldSendNotification) {
+					sendPriceDropEmail(like.getUser(), product, like.getInitialPrice());
+					like.setLastNotificationTime(LocalDateTime.now());
+					likeRepository.save(like);
+				}
 			}
+		}
+	}
+
+	private void sendPriceDropEmail(User user, Product product, int initialPrice) {
+		String subject = "찜한 상품의 가격이 하락했습니다!";
+		String text = String.format(
+			"안녕하세요 %s님,\n\n" +
+				"찜하신 상품 '%s'의 가격이 하락했습니다.\n\n" +
+				"상품 상세페이지: %s\n" +
+				"찜 당시 가격: %d원\n" +
+				"현재 가격: %d원\n\n" +
+				"지금 확인해보세요!",
+			user.getEmail(),
+			product.getProductName(),
+			product.getProductURL(),
+			initialPrice,
+			product.getPrice()
+		);
+
+		try {
+			emailService.sendEmail(user.getEmail(), subject, text);
+		} catch (MessagingException e) {
+			e.printStackTrace();
 		}
 	}
 }
