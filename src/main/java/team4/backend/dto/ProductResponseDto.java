@@ -1,5 +1,6 @@
 package team4.backend.dto;
 
+import jakarta.persistence.criteria.CriteriaBuilder.In;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,9 +15,8 @@ public class ProductResponseDto {
   private String brand;
   private String productName;
   private Integer price;
-  private Integer discountRate;
+  private String discountRate;
   private Integer originalPrice;
-  private Integer likes;
   private String productURL;
   private String imageURL;
   private String productCode;
@@ -31,9 +31,7 @@ public class ProductResponseDto {
     this.price = product.getPrice();
     this.discountRate = product.getDiscountRate();
     this.originalPrice = product.getOriginalPrice();
-    this.likes = product.getLikes();
     this.productURL = product.getProductURL();
-    this.productCode = product.getProductCode();
     this.priceHistoryList = product.getPriceHistoryList();
   }
 }

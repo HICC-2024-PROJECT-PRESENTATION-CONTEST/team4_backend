@@ -38,13 +38,10 @@ public class Product {
   private Integer price;
 
   @Column(nullable = false, unique = false)
-  private Integer discountRate;
+  private String discountRate;
 
   @Column(nullable = false, unique = false)
   private Integer originalPrice;
-
-  @Column(nullable = false, unique = false)
-  private Integer likes;
 
   @Column(nullable = false, unique = false)
   private String productURL;
@@ -53,7 +50,7 @@ public class Product {
   private String imageURL;
 
   @Column(nullable = true, unique = false)
-  private String productCode;
+  private String category;
 
 
   @OneToMany(mappedBy = "product")
