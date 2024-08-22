@@ -1,5 +1,6 @@
 package team4.backend.service;
 
+import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,16 @@ public class ProductService {
   private final PriceHistoryRepository priceHistoryRepository;
   private final LikeService likeService;
 
-  public void createProduct(Product product) {
-    productRepository.save(product);
+  public void createProduct(List<Product> productList) {
+    for (Product product : productList) {
+      PriceHistory priceHistory = new PriceHistory(new Date(),product.getPrice(),product);
+      productRepository.save(product);
+      priceHistoryRepository.save(priceHistory);
+      boolean isPriceDropped = product.getPrice() > priceHistory.getPrice();
+      if (isPriceDropped) {
+        likeService.notifyPriceDrop(product.getId());
+      }
+    }
   }
 
   public void createPriceHistory(PriceHistory priceHistory, Long productId) {

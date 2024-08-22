@@ -1,6 +1,5 @@
 package team4.backend.entity;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,19 +37,19 @@ public class Product {
   private Integer price;
 
   @Column(nullable = false, unique = false)
-  private Integer discountRate;
+  private String discountRate;
 
   @Column(nullable = false, unique = false)
   private Integer originalPrice;
-
-  @Column(nullable = false, unique = false)
-  private Integer likes;
 
   @Column(nullable = false, unique = false)
   private String productURL;
 
   @Column(nullable = false, unique = false)
   private String imageURL;
+
+  @Column(nullable = true, unique = false)
+  private String category;
 
   @OneToMany(mappedBy = "product")
   List<PriceHistory> priceHistoryList = new ArrayList<>();
