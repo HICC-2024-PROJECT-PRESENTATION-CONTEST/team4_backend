@@ -52,10 +52,6 @@ public class Product {
   @Column(nullable = false, unique = false)
   private String imageURL;
 
-  @Column(nullable = true, unique = false)
-  private String productCode;
-
-
   @OneToMany(mappedBy = "product")
   List<PriceHistory> priceHistoryList = new ArrayList<>();
 }

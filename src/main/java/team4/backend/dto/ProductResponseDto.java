@@ -33,7 +33,6 @@ public class ProductResponseDto {
     this.originalPrice = product.getOriginalPrice();
     this.likes = product.getLikes();
     this.productURL = product.getProductURL();
-    this.productCode = product.getProductCode();
     this.priceHistoryList = product.getPriceHistoryList();
   }
 }
