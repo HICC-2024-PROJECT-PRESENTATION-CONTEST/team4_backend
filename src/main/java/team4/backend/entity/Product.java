@@ -1,6 +1,5 @@
 package team4.backend.entity;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -51,7 +50,6 @@ public class Product {
 
   @Column(nullable = true, unique = false)
   private String category;
-
 
   @OneToMany(mappedBy = "product")
   List<PriceHistory> priceHistoryList = new ArrayList<>();

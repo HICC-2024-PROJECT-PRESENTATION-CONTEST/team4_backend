@@ -10,7 +10,6 @@ import team4.backend.entity.Product;
 @Getter
 @AllArgsConstructor
 public class ProductResponseDto {
-
   private Long id;
   private String brand;
   private String productName;
@@ -19,10 +18,7 @@ public class ProductResponseDto {
   private Integer originalPrice;
   private String productURL;
   private String imageURL;
-  private String productCode;
-
   private List<PriceHistory> priceHistoryList;
-
 
   public ProductResponseDto(Product product){
     this.id = product.getId();

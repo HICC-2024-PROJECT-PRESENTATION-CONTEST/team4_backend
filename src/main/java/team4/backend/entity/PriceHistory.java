@@ -43,6 +43,6 @@ public class PriceHistory {
   public PriceHistory(Date date, Integer price, Product product) {
     this.date = date;
     this.price = price;
-    this.product =product;
+    this.product = product;
   }
 }
