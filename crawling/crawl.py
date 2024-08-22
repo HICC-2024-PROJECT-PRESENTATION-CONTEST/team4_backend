@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
-from DB import create_table, insert_or_update_products, get_all_data
+from DB import create_table, insert_or_update_products, get_all_data, send_products
 from recommand import get_recommand
 
 
@@ -124,8 +124,9 @@ def crawl_category_page(url ,scroll_count=999999):
     driver.quit()
 
     # 데이터베이스에 저장
-    create_table()
-    insert_or_update_products(all_data)
+    # create_table()
+    # insert_or_update_products(all_data)
+    send_products(all_data)
 
     return all_data
 
@@ -147,7 +148,6 @@ category_urls = {
     "부티크": "https://www.musinsa.com/categories/item/105?gf=A",
     "키즈": "https://www.musinsa.com/categories/item/106?gf=A",
     "어스": "https://www.musinsa.com/categories/item/108?gf=A"
-
 }
 
 # 딕셔너리 순회하며 각 URL로 크롤링 함수 호출
@@ -156,7 +156,7 @@ for category, url in category_urls.items():
     
     # 크롤링 함수 호출 (각 카테고리마다 n번 스크롤)
     # 테스트용으로 작게주고, 디폴트는 다긁어옴
-    crawl_category_page(url)
+    crawl_category_page(url,2)
     print(f"{category} 크롤링 완료!\n") 
 
 
