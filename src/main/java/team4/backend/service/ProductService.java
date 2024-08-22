@@ -24,8 +24,12 @@ public class ProductService {
   public void createProduct(List<Product> productList) {
     for (Product product : productList) {
       PriceHistory priceHistory = new PriceHistory(new Date(),product.getPrice(),product);
-      priceHistoryRepository.save(priceHistory);
       productRepository.save(product);
+      priceHistoryRepository.save(priceHistory);
+      boolean isPriceDropped = product.getPrice() > priceHistory.getPrice();
+      if (isPriceDropped) {
+        likeService.notifyPriceDrop(product.getId());
+      }
     }
   }
 
