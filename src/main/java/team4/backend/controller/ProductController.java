@@ -15,6 +15,7 @@ import team4.backend.entity.PriceHistory;
 import team4.backend.entity.Product;
 import team4.backend.response.ApiResponse;
 import team4.backend.service.ProductService;
+import team4.backend.service.PythonService;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,7 +23,7 @@ import team4.backend.service.ProductService;
 public class ProductController {
 
   private final ProductService productService;
-
+  private final PythonService pythonService;
 
   // 테스트 하려고 넣음 실제로는 파이썬에서 db에 제품 정보 넣을 듯
   @PostMapping("/create")
@@ -48,6 +49,16 @@ public class ProductController {
   public ResponseEntity<?> searchProduct(@PathVariable Long productId) {
     ProductResponseDto productResponseDto = productService.searchProduct(productId);
     return ResponseEntity.ok(ApiResponse.ok("제품 세부사항 검색 성공", productResponseDto));
+  }
+
+  @GetMapping("/{productId}/recommendations")
+  public ResponseEntity<String> getRecommendations(@PathVariable Long productId) {
+    // productId로 제품명 조회
+    String productName = productService.getProductNameById(productId);
+
+    // 추천 시스템 호출
+    String recommendations = pythonService.getRecommendations(productName);
+    return ResponseEntity.ok(recommendations);
   }
 
 }

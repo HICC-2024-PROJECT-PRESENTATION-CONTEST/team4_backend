@@ -7,12 +7,8 @@ import org.springframework.security.core.parameters.P;
 import team4.backend.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product,Long> {
-  List<Product> findAllByProductName(String query);
 
   List<Product> findByProductNameContaining(String query);
 
   Optional<Product> findById(Long productId);
-
-
-
 }

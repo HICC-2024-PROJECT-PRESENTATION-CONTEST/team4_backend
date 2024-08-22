@@ -9,7 +9,6 @@ import team4.backend.entity.PriceHistory;
 import team4.backend.entity.Product;
 import team4.backend.exception.BusinessException;
 import team4.backend.exception.ErrorCode;
-import team4.backend.repository.LikeRepository;
 import team4.backend.repository.PriceHistoryRepository;
 import team4.backend.repository.ProductRepository;
 
@@ -51,5 +50,11 @@ public class ProductService {
     return new ProductResponseDto(productRepository.findById(productId)
         .orElseThrow(
             () -> new BusinessException(HttpStatus.BAD_REQUEST, ErrorCode.NOT_FOUND_PRODUCT)));
+  }
+
+  public String getProductNameById(Long productId) {
+    return productRepository.findById(productId)
+        .map(Product::getProductName)
+        .orElseThrow(() -> new BusinessException(HttpStatus.BAD_REQUEST, ErrorCode.NOT_FOUND_PRODUCT));
   }
 }
