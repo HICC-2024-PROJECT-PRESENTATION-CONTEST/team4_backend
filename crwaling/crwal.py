@@ -7,6 +7,34 @@ from bs4 import BeautifulSoup
 from DB import create_table, insert_or_update_products, get_all_data
 from recommand import get_recommand
 
+
+
+def calculate_original_price(price, discount_rate):
+    """가격과 할인율을 이용해 원가를 계산하는 함수."""
+    try:
+        # 가격에서 '원' 제거하고, 쉼표를 제거하여 숫자형으로 변환
+        price = float(price.replace(',', '').replace('원', ''))
+
+        # 할인율이 'N/A'가 아니라면 백분율을 소수로 변환하여 원가 계산
+        if discount_rate != "N/A":
+            discount_rate = float(discount_rate.replace('%', '')) / 100
+            original_price = price / (1 - discount_rate)
+        else:
+            original_price = price
+
+        # 원가를 반올림하여 정수로 변환
+        original_price = round(original_price,-2)
+        original_price = int(original_price)
+
+        # 원가를 쉼표와 '원'을 포함한 문자열 형식으로 변환
+        original_price_str = f"{original_price:,}원"
+        return original_price_str
+    except Exception as e:
+        print(f"Error calculating original price: {e}")
+        return "N/A"
+
+
+
 def scrape_page(driver):
     """현재 페이지의 데이터를 크롤링하여 리스트로 반환."""
     data = []
@@ -41,7 +69,7 @@ def scrape_page(driver):
             # 원래 가격 추출 (기본값 "N/A")
             # original_price = item_1.find('del', class_='category__sc-79f6w4-6 iHtcSg')
             # original_price = original_price.text if original_price else "N/A"
-            original_price = "N/A"
+            original_price = calculate_original_price(price, discount_rate)
             
             # 상품 링크와 이미지 URL 추출
             link_tag = item_2.find('a')
@@ -57,6 +85,8 @@ def scrape_page(driver):
             continue
 
     return data
+
+
 
 def crawl_category_page(url ,scroll_count=999999):
     """주어진 URL의 카테고리 페이지를 크롤링하여 데이터베이스에 저장."""
@@ -126,9 +156,11 @@ for category, url in category_urls.items():
     
     # 크롤링 함수 호출 (각 카테고리마다 n번 스크롤)
     # 테스트용으로 작게주고, 디폴트는 다긁어옴
-    crawl_category_page(url,3)
+    crawl_category_page(url)
     print(f"{category} 크롤링 완료!\n") 
 
-# 특정 제품과 유사한 제품 추천
-recommended_products = get_recommand('소프트 필링 세미오버 라운드 니트 초코브라운', 30) # 전체 DB데이터 내에서 주어진 문자열과 가장 유사성이 높은 상위 n개의 이름 리턴 
-print(recommended_products)
+
+
+# # 특정 제품과 유사한 제품 추천
+# recommended_products = get_recommand('하트 클럽 카라 반팔티 WHITE (LO2TF284-002)', 30) # 전체 DB데이터 내에서 주어진 문자열과 가장 유사성이 높은 상위 n개의 이름 리턴 
+# print(recommended_products)
