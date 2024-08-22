@@ -66,3 +66,16 @@ def get_all_data():
     conn.close()
     
     return df
+
+
+def convert_price(price_str):    # 가격 문자열에서 숫자만 추출하여 정수로 변환하는 함수
+    # 가격 문자열에서 숫자와 쉼표를 제거
+    return int(price_str.replace('원', '').replace(',', '').strip())
+
+def send_products(products):
+    for product in products:
+        product[3] = convert_price(product[3])
+        product[5] = convert_price(product[5])
+        print(product)
+
+
