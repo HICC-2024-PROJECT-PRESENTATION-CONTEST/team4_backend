@@ -9,6 +9,6 @@ import team4.backend.entity.Product;
 public interface ProductRepository extends JpaRepository<Product,Long> {
 
   List<Product> findByProductNameContaining(String query);
-
+  List<Product> findTop10ByProductNameContaining(String query);
   Optional<Product> findById(Long productId);
 }

@@ -23,7 +23,7 @@ public class ProductService {
 
   public void createProduct(List<Product> productList) {
     for (Product product : productList) {
-      PriceHistory priceHistory = new PriceHistory(new Date(),product.getPrice(),product);
+      PriceHistory priceHistory = new PriceHistory(new Date(), product.getPrice(), product);
       productRepository.save(product);
       priceHistoryRepository.save(priceHistory);
       boolean isPriceDropped = product.getPrice() > priceHistory.getPrice();
@@ -35,7 +35,8 @@ public class ProductService {
 
   public void createPriceHistory(PriceHistory priceHistory, Long productId) {
     Product product = productRepository.findById(productId)
-        .orElseThrow(() -> new BusinessException(HttpStatus.BAD_REQUEST, ErrorCode.NOT_FOUND_PRODUCT));
+        .orElseThrow(
+            () -> new BusinessException(HttpStatus.BAD_REQUEST, ErrorCode.NOT_FOUND_PRODUCT));
 
     boolean isPriceDropped = product.getPrice() > priceHistory.getPrice();
 
@@ -64,6 +65,12 @@ public class ProductService {
   public String getProductNameById(Long productId) {
     return productRepository.findById(productId)
         .map(Product::getProductName)
-        .orElseThrow(() -> new BusinessException(HttpStatus.BAD_REQUEST, ErrorCode.NOT_FOUND_PRODUCT));
+        .orElseThrow(
+            () -> new BusinessException(HttpStatus.BAD_REQUEST, ErrorCode.NOT_FOUND_PRODUCT));
+  }
+
+  public List<String> autoComplete(String query) {
+    return productRepository.findTop10ByProductNameContaining(query).stream()
+        .map(Product::getProductName).toList();
   }
 }
