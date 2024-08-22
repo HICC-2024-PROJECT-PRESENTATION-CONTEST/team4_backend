@@ -26,7 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.Collections;
 
-import team4.backend.entity.Role;
 import team4.backend.entity.User;
 import team4.backend.repository.UserRepository;
 
@@ -47,7 +46,7 @@ public class OAuth2LoginIntegrationTest {
 		userRepository.deleteAll();
 
 		// Create a mock user
-		User user = new User("user@example.com", Collections.singleton(Role.USER));
+		User user = new User("user@example.com");
 		userRepository.save(user);
 	}
 
