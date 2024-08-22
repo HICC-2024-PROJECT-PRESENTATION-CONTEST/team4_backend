@@ -20,8 +20,8 @@ public class ProductService {
   private final PriceHistoryRepository priceHistoryRepository;
   private final LikeService likeService;
 
-  public void createProduct(Product product) {
-    productRepository.save(product);
+  public void createProduct(List<Product> productList) {
+    productRepository.saveAll(productList);
   }
 
   public void createPriceHistory(PriceHistory priceHistory, Long productId) {
