@@ -20,14 +20,22 @@ public class WebController {
 		return "login_page";
 	}
 
+	// my_page_1 페이지
 	@GetMapping("/my_page_1")
 	public String myPage1() {
 		return "my_page_1"; // my_page_1.html 파일을 반환
 	}
 
+	// my_page_2 페이지
+	@GetMapping("/my_page_2")
+	public String myPage2() {
+		return "my_page_2"; // my_page_2.html 파일을 반환
+	}
+
+	// 검색 결과 페이지
 	@GetMapping("/search")
 	public String searchResultsPage(@RequestParam(name = "query", required = false, defaultValue = "") String query, Model model) {
-		// Here you can pass search results to the view
+		// 검색 결과를 뷰로 전달할 수 있음
 		model.addAttribute("searchQuery", query);
 		return "search_results_page";
 	}
