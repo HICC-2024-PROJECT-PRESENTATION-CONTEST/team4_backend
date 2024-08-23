@@ -26,10 +26,10 @@ public class WebController {
 		return "my_page_1"; // my_page_1.html 파일을 반환
 	}
 
-	// my_page_2 페이지
-	@GetMapping("/my_page_2")
-	public String myPage2() {
-		return "my_page_2"; // my_page_2.html 파일을 반환
+	// create_account_page 페이지
+	@GetMapping("/create_account_page")
+	public String Account() {
+		return "create_account_page"; // create_account_page.html 파일을 반환
 	}
 
 	// 검색 결과 페이지
