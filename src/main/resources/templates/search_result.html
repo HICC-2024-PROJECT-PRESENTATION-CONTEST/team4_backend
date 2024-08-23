@@ -1,116 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Search result</title>
-        <link rel = "stylesheet" type = "text/css" href = "/css/search_result.css">
-        <link rel = "stylesheet" type = "text/css" href = "/css/header.css">
-        <link rel = "stylesheet" type = "text/css" href = "/css/footer.css">
-        <script defer src="/js/search-result.js"></script>
-    </head>
-    <body>
-        <header>
-            <div id = page-logo>
-                <div id="home">
-                    <img src="img/홈버튼.PNG" alt="home">
-                </div>
-                <div id="logo">
-                    <img src="" alt="Logo">
-                </div>
-                <div id="my">
-                    <img src="img/마이페이지.PNG" alt="my">
-                </div>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search result</title>
+    <link rel = "stylesheet" type = "text/css" href = "css/search_result.css">
+    <link rel = "stylesheet" type = "text/css" href = "css/header.css">
+    <link rel = "stylesheet" type = "text/css" href = "css/footer.css">
+    <script defer src="js/header_button.js"></script>
+    <script defer src="/js/search-result.js"></script>
+</head>
+<body>
+    <header>
+        <div id="page-logo">
+            <div id="home">
+                <img src="img/home.png" alt="home" />
             </div>
-            <div id="search">
-                <form action="" method="get">
-                    <input class="search-txt" type="text" name="" placeholder="원하는 상품을 검색해보세요!">
-                    <button class="search-btn" type="submit">
-                        <img src="img/돋보기.png">
-                    </button>
-                </form>
+            <div id="logo">
+                <img src="img/log.png" alt="Logo" />
             </div>
-        </header>
-        <aside class ="c_2">
-        </aside>
-        <section class = "c_8">
-            <div id = "search-list">
-                <h5 id = "prd-count">검색된 상품 <span id = "count"></span>개</h5>
-                <ul class ="item">
-                    <div class = "img-wrapper">
-                        <li><img class = "image" src = "img/임시이미지1.png"></li>
-                    </div>
-                    <li class = "brand-name"></li>
-                    <li class = "prd-name"></li>
-                    <li><span class = "discount-rate"></span><span class = "price"></span></li>
-                </ul>
-                <ul class ="item">
-                    <div class = "img-wrapper">
-                        <li><img class = "image" src = "img/임시이미지2.png"></li>
-                    </div>
-                    <li class = "brand-name"></li>
-                    <li class = "prd-name"></li>
-                    <li><span class = "discount-rate"></span><span class = "price"></span></li>
-                </ul>
-                <div class ="m_clear"></div>
-                <ul class ="item">
-                    <div class = "img-wrapper">
-                        <li><img class = "image" src = "img/임시이미지3.png"></li>
-                    </div>
-                    <li class = "brand-name">임시브랜드3</li>
-                    <li class = "prd-name">임시제품명</li>
-                    <li><span class = "discount-rate">X%</span><span class = "price">XX,XXX원</span></li>
-                </ul>
-                <ul class ="item">
-                    <div class = "img-wrapper">
-                        <li><img class = "image" src = "img/임시이미지4.png"></li>
-                    </div>
-                    <li class = "brand-name">임시브랜드4</li>
-                    <li class = "prd-name">임시제품명</li>
-                    <li><span class = "discount-rate">X%</span><span class = "price">XX,XXX원</span></li>
-                </ul>
-                <div class ="clear"></div>
-                <ul class ="item">
-                    <div class = "img-wrapper">
-                        <li><img class = "image" src = "img/임시이미지5.png"></li>
-                    </div>
-                    <li class = "brand-name">임시브랜드5</li>
-                    <li class = "prd-name">임시제품명</li>
-                    <li class = "price"><span class = "discount-rate">X%</span> XX,XXX원</li>
-                </ul>
-                <ul class ="item">
-                    <div class = "img-wrapper">
-                        <li><img class = "image" src = "img/임시이미지6.png"></li>
-                    </div>
-                    <li class = "brand-name">임시브랜드6</li>
-                    <li class = "prd-name">임시제품명</li>
-                    <li class = "price"><span class = "discount-rate">X%</span> XX,XXX원</li>
-                </ul>
-                <div class ="m_clear"></div>
-                <ul class ="item">
-                    <div class = "img-wrapper">
-                        <li><img class = "image" src = "img/임시이미지7.png"></li>
-                    </div>
-                    <li class = "brand-name">임시브랜드7</li>
-                    <li class = "prd-name">임시제품명</li>
-                    <li class = "price"><span class = "discount-rate">X%</span> XX,XXX원</li>
-                </ul>
-                <ul class ="item">
-                    <div class = "img-wrapper">
-                        <li><img class = "image" src = "img/임시이미지8.png"></li>
-                    </div>
-                    <li class = "brand-name">임시브랜드8</li>
-                    <li class = "prd-name">임시제품명</li>
-                    <li class = "price"><span class = "discount-rate">X%</span> XX,XXX원</li>
-                </ul>
+            <div id="my">
+                <img src="img/login.png" alt="my" />
             </div>
-        </section>
-        <aside class = "c_2">
-        </aside>
-        <footer class = "c_12">
-            <p><a href = "#">개인정보처리방침</a><p>
-            <p>email : <a href = "#">1234@gmail.com</a></p>
-        </footer>
-        <script src="js/search-result.js"></script>
-    </body>
+        </div>
+        <div id="search">
+            <form id = "search-form" action="" method="get">
+                <input id="search-txt" type="text" name="" placeholder="원하는 상품을 검색해보세요!"/>
+                <button id="search-btn" type="submit">
+                    <img src="img/search.png" />
+                </button>
+            </form>
+        </div>
+    </header>
+<aside class ="c_2">
+</aside>
+<section class = "c_8">
+    <div id = "search-list">
+        <h5 id = "prd-count">검색된 상품 <span id = "count"></span>개</h5>
+        <ul class ="item">
+            <div class = "img-wrapper">
+                <li><img class = "image" src = "img/임시이미지1.png"></li>
+            </div>
+            <li class = "brand-name"></li>
+            <li class = "prd-name"></li>
+            <li><span class = "discount-rate"></span><span class = "price"></span></li>
+        </ul>
+        <ul class ="item">
+            <div class = "img-wrapper">
+                <li><img class = "image" src = "img/임시이미지2.png"></li>
+            </div>
+            <li class = "brand-name"></li>
+            <li class = "prd-name"></li>
+            <li><span class = "discount-rate"></span><span class = "price"></span></li>
+        </ul>
+        <div class ="m_clear"></div>
+        <ul class ="item">
+            <div class = "img-wrapper">
+                <li><img class = "image" src = "img/임시이미지3.png"></li>
+            </div>
+            <li class = "brand-name">임시브랜드3</li>
+            <li class = "prd-name">임시제품명</li>
+            <li><span class = "discount-rate">X%</span><span class = "price">XX,XXX원</span></li>
+        </ul>
+        <ul class ="item">
+            <div class = "img-wrapper">
+                <li><img class = "image" src = "img/임시이미지4.png"></li>
+            </div>
+            <li class = "brand-name">임시브랜드4</li>
+            <li class = "prd-name">임시제품명</li>
+            <li><span class = "discount-rate">X%</span><span class = "price">XX,XXX원</span></li>
+        </ul>
+        <div class ="clear"></div>
+        <ul class ="item">
+            <div class = "img-wrapper">
+                <li><img class = "image" src = "img/임시이미지5.png"></li>
+            </div>
+            <li class = "brand-name">임시브랜드5</li>
+            <li class = "prd-name">임시제품명</li>
+            <li class = "price"><span class = "discount-rate">X%</span> XX,XXX원</li>
+        </ul>
+        <ul class ="item">
+            <div class = "img-wrapper">
+                <li><img class = "image" src = "img/임시이미지6.png"></li>
+            </div>
+            <li class = "brand-name">임시브랜드6</li>
+            <li class = "prd-name">임시제품명</li>
+            <li class = "price"><span class = "discount-rate">X%</span> XX,XXX원</li>
+        </ul>
+        <div class ="m_clear"></div>
+        <ul class ="item">
+            <div class = "img-wrapper">
+                <li><img class = "image" src = "img/임시이미지7.png"></li>
+            </div>
+            <li class = "brand-name">임시브랜드7</li>
+            <li class = "prd-name">임시제품명</li>
+            <li class = "price"><span class = "discount-rate">X%</span> XX,XXX원</li>
+        </ul>
+        <ul class ="item">
+            <div class = "img-wrapper">
+                <li><img class = "image" src = "img/임시이미지8.png"></li>
+            </div>
+            <li class = "brand-name">임시브랜드8</li>
+            <li class = "prd-name">임시제품명</li>
+            <li class = "price"><span class = "discount-rate">X%</span> XX,XXX원</li>
+        </ul>
+    </div>
+</section>
+<aside class = "c_2">
+</aside>
+<footer class = "c_12">
+    <p><a href = "#">개인정보처리방침</a><p>
+</footer>
+</body>
 </html>
