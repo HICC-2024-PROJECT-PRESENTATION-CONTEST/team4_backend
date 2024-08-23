@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -15,25 +14,31 @@
 <header>
     <div id="page-logo">
         <div id="home">
-            <img src="img/홈버튼.PNG" alt="home" />
+            <a href="/" onclick="goToHome()">
+                <img src="img/홈버튼.PNG" alt="home" />
+            </a>
         </div>
         <div id="logo">
-            <img src="img/임시로고.PNG" alt="Logo" />
+            <a href="/">
+                <img src="img/임시로고.PNG" alt="Logo" />
+            </a>
         </div>
         <div id="my">
-            <img src="img/마이페이지.PNG" alt="my" />
+            <a href="/my_page_1">
+                <img src="img/마이페이지.PNG" alt="my" />
+            </a>
         </div>
     </div>
     <div id="search">
-        <form action="" method="get">
+        <form onsubmit="event.preventDefault(); searchProduct();">
             <input
+                    id="search-input"
                     class="search-txt"
                     type="text"
-                    name=""
                     placeholder="원하는 상품을 검색해보세요!"
             />
             <button class="search-btn" type="submit">
-                <img src="img/돋보기.png" />
+                <img src="img/돋보기.png" alt="Search" />
             </button>
         </form>
     </div>
@@ -47,20 +52,7 @@
             <a href="#">더 보기</a>
         </div>
         <div class="wishlist-items">
-            <div class="item">
-                <img src="img/임시이미지.png" alt="Item 1" />
-                <p>
-                    굿라이프웍스<br />오버사이즈 셔츠<br /><span>70% 14,700원</span>
-                </p>
-            </div>
-            <div class="item">
-                <img src="img/임시이미지2.png" alt="Item 2" />
-                <p>후크<br />빈티지 워싱 체크셔츠<br /><span>53% 43,900원</span></p>
-            </div>
-            <div class="item">
-                <img src="img/임시이미지3.png" alt="Item 3" />
-                <p>이즈<br />린넨 셔츠<br /><span>50% 31,500원</span></p>
-            </div>
+            <!-- Example items -->
         </div>
     </div>
 
@@ -71,6 +63,11 @@
 
     <div class="terms-section">
         <button>회원 정보 및 이용약관</button>
+    </div>
+
+    <div class="account-actions">
+        <button id="logoutButton">로그아웃</button>
+        <button id="deleteAccountButton">회원 탈퇴</button>
     </div>
 </div>
 

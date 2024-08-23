@@ -1,5 +1,6 @@
 package team4.backend.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,7 +30,12 @@ public class UserController {
 
 	// 사용자 탈퇴
 	@DeleteMapping("/profile")
-	public ResponseEntity<String> deleteUserProfile(Authentication authentication) {
+	public ResponseEntity<String> deleteUserProfile() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null || !authentication.isAuthenticated()) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
+		}
+
 		String email = authentication.getName();
 		userService.deleteByEmail(email);
 		return ResponseEntity.ok("User deleted successfully");
