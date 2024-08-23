@@ -3,39 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script defer src="js/header_button.js"></script>
-  <Title>Detail</Title>
-  <link rel = "stylesheet" type = "text/css" href = "css/detail.css">
-  <link rel = "stylesheet" type = "text/css" href = "css/header.css">
-  <link rel = "stylesheet" type = "text/css" href = "css/footer.css">
+  <title>Search result</title>
+  <link rel = "stylesheet" type = "text/css" href = "/css/detail.css">
+  <link rel = "stylesheet" type = "text/css" href = "/css/header.css">
+  <link rel = "stylesheet" type = "text/css" href = "/css/footer.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+  <script defer src="js/header_button.js"></script>
+  <script defer src="/js/detail.js"></script>
 </head>
 <body>
 <header>
-  <div id = page-logo>
+  <div id="page-logo">
     <div id="home">
-      <img src="img/홈버튼.PNG" alt="home">
+      <img src="/img/home.png" alt="home" />
     </div>
     <div id="logo">
-      <img src="img/임시로고.PNG" alt="Logo">
+      <img src="/img/log.png" alt="Logo" />
     </div>
     <div id="my">
-      <img src="img/마이페이지.PNG" alt="my">
+      <img src="/img/login.png" alt="my" />
     </div>
   </div>
   <div id="search">
-    <form action="" method="get">
-      <input class="search-txt" type="text" name="" placeholder="원하는 상품을 검색해보세요!">
-      <button class="search-btn" type="submit">
-        <img src="img/돋보기.png">
+    <form id = "search-form" action="" method="get">
+      <input id="search-txt" type="text" name="" placeholder="원하는 상품을 검색해보세요!"/>
+      <button id="search-btn" type="submit">
+        <img src="/img/search.png" />
       </button>
     </form>
   </div>
 </header>
 <aside class = "c_5">
   <ul>
-    <li class = "img"><img src = "img/임시이미지.png"></li>
+    <li class = "img"><img src = "/img/image.png"></li>
   </ul>
 </aside>
 <section class = "c_7">
@@ -43,7 +44,7 @@
     <a href = "#">카테고리 1</a> > <a href = "#">카테고리 2</a> > <a href = "#">카테고리 3</a> > <a href = "#">카테고리 4</a>
   </div>
   <div id = "heart-container">
-    <img id = "heart" src="img/찜하기.png" alt ="heart">
+    <img id = "heart" src="/img/heart.png" alt ="heart">
   </div>
   <div id = "prd-name">
     <a href = "#">브랜드명</a> | ACG Cinder Cone 윈드프루프 재킷 M - 썬더 블루:데이브레이크:서밋 화이트 / DB0979-437
@@ -53,7 +54,7 @@
       <span style = "color:#000000; line-height:35px;"><b>구매링크</b></span>
     </div>
     <div id = "price">
-      <span style = "color:#ff7777";>X%  </span><b>x,xxx원</b>
+      <span style = "color:#ff7777">X%  </span><b>x,xxx원</b>
     </div>
   </div>
   <div id="price-graph">
@@ -166,6 +167,5 @@
 <footer class = "c_12">
   <p><a href = "#">개인정보처리방침</a></p>
 </footer>
-<script src="js/detail.js"></script>
 </body>
 </html>

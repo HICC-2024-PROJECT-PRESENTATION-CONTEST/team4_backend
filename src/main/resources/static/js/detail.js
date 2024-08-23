@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentSrc = heartIcon.getAttribute('src');
 
         // 상대 경로로 이미지 URL을 정의합니다.
-        const heartEmpty = 'img/찜하기.png';
-        const heartFilled = 'img/찜하기f.png';
+        const heartEmpty = '/img/heart.png';
+        const heartFilled = '/img/heartc.png';
 
         // src가 빈 하트 이미지인지 확인하고 이미지 변경
         if (currentSrc.includes(heartEmpty)) {

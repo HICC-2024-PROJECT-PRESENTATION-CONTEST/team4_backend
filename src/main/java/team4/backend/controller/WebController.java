@@ -3,6 +3,7 @@ package team4.backend.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -38,5 +39,11 @@ public class WebController {
 		// 검색 결과를 뷰로 전달할 수 있음
 		model.addAttribute("searchQuery", query);
 		return "search_result";
+	}
+	@GetMapping("/product/{id}")
+	public String searchDetailPage(@PathVariable(name = "id") String id, Model model) {
+		// 검색 결과를 뷰로 전달할 수 있음
+		model.addAttribute("searchQuery", id);
+		return "detail";
 	}
 }
