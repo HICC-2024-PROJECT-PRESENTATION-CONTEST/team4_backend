@@ -126,6 +126,7 @@ body {
 
     aside {
         text-align: right;
+        margin-top:60px;
     }
 
     aside .img_m .img img {
@@ -153,6 +154,7 @@ a:active {
     text-decoration: none;
 }
 aside {
+    margin-top:40px;
 }
 /* 기본 설정: 768px 미만일 때 */
 aside li {
@@ -178,6 +180,7 @@ aside img {
 
 
 section {
+    margin-top:40px;
 }
 
 section #category {

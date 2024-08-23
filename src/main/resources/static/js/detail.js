@@ -1,4 +1,31 @@
+// 현재 URL에서 productID를 추출
+const url = window.location.href; // 현재 페이지의 URL 가져오기
+const urlParts = url.split('/'); // URL을 '/'로 분할
+const productID = urlParts[urlParts.length - 1]; // 마지막 부분이 productID
 
+const fetchUrl = `http://localhost:8080/api/product/search/${productID}`;
+console.log(fetchUrl); // URL 확인
+fetch(fetchUrl)
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        return response.json();
+    })
+    .then((result) => {
+        console.log(result); // 전체 result 객체를 출력하여 구조 확인
+        let data = result.data; // data가 있는지 확인하며 접근
+        console.log(data); // data 값을 확인
+        processData(data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+
+function processData(data) {
+    const imageElement = document.getElementById('image');
+    imageElement.src = data.imageURL;
+}
 document.addEventListener('DOMContentLoaded', () => {
     const heartIcon = document.querySelector('#heart');
 
