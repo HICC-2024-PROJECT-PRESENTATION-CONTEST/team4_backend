@@ -7,67 +7,55 @@
     <link rel="stylesheet" href="css/my_page_1.css" />
     <link rel="stylesheet" type="text/css" href="css/header.css" />
     <link rel="stylesheet" type="text/css" href="css/footer.css" />
-    <script defer src="js/header_button.js"></script>
-    <script defer src="js/my_page_1.js"></script>
-</head>
-<body>
-<header>
-    <div id="page-logo">
-        <div id="home">
-            <a href="/" onclick="goToHome()">
-                <img src="img/홈버튼.PNG" alt="home" />
-            </a>
+    <script defer src="/js/header_button.js"></script>
+    <script defer src="/js/my_page_1.js"></script>
+    </head>
+    <body><header>
+        <div id="page-logo">
+            <div id="home">
+                <img src="img/home.png" alt="home" />
+            </div>
+            <div id="logo">
+                <img src="img/log.png" alt="Logo" />
+            </div>
+            <div id="my">
+                <img src="img/login.png" alt="my" />
+            </div>
         </div>
-        <div id="logo">
-            <a href="/">
-                <img src="img/임시로고.PNG" alt="Logo" />
-            </a>
+        <div id="search">
+            <form id = "search-form" action="" method="get">
+                <input id="search-txt" type="text" name="" placeholder="원하는 상품을 검색해보세요!"/>
+                <button id="search-btn" type="submit">
+                    <img src="img/search.png" />
+                </button>
+            </form>
         </div>
-        <div id="my">
-            <a href="/my_page_1">
-                <img src="img/마이페이지.PNG" alt="my" />
-            </a>
-        </div>
-    </div>
-    <div id="search">
-        <form onsubmit="event.preventDefault(); searchProduct();">
-            <input
-                    id="search-input"
-                    class="search-txt"
-                    type="text"
-                    placeholder="원하는 상품을 검색해보세요!"
-            />
-            <button class="search-btn" type="submit">
-                <img src="img/돋보기.png" alt="Search" />
-            </button>
-        </form>
-    </div>
-</header>
+    </header>
 
-<div class="main-content">
-    <h1>마이페이지</h1>
-    <div class="wishlist-section">
-        <div class="wishlist-title">
-            <span>찜 목록</span>
-            <a href="#">더 보기</a>
+        <div class="main-content">
+            <h1>마이페이지</h1>
+            <div class="wishlist-section">
+                <div class="wishlist-title">
+                    <span>찜 목록</span>
+                    <a href="#">더 보기</a>
+                </div>
+                <div class="wishlist-items">
+                    <!-- Example items -->
+                </div>
+            </div>
+
+            <div class="terms-section">
+                <button>회원 정보 및 이용약관</button>
+            </div>
+
+            <div class="account-actions">
+                <button id="logoutButton">로그아웃</button>
+                <button id="deleteAccountButton">회원 탈퇴</button>
+            </div>
         </div>
-        <div class="wishlist-items">
-            <!-- Example items -->
-        </div>
-    </div>
 
-    <div class="terms-section">
-        <button>회원 정보 및 이용약관</button>
-    </div>
-
-    <div class="account-actions">
-        <button id="logoutButton">로그아웃</button>
-        <button id="deleteAccountButton">회원 탈퇴</button>
-    </div>
-</div>
-
-<footer class="c_12">
-    <p><a href="#">개인정보처리방침</a></p>
-</footer>
-</body>
+        <footer class="c_12">
+            <p><a href="#">개인정보처리방침</a></p>
+        </footer>
+    </body>
 </html>
