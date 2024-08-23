@@ -123,12 +123,58 @@ def crawl_category_page(url ,scroll_count=999999):
 
     driver.quit()
 
+    # API 엔드포인트 URL
+    url = "http://localhost:8080/api/product/create"  # 스프링 부트 서버 주소
+
+    # products_list는 각 제품의 정보를 담고 있는 리스트
+    products_list = send_products(all_data)
+
+    # 제품 하나씩 POST 요청 보내기
+    for product in products_list:
+        # 빈 문자열이 있는지 확인하고, 필요한 경우 None으로 변경
+        for key, value in product.items():
+            if value == "":
+                product[key] = None  # 빈 문자열을 None으로 대체
+        
+        response = requests.post(url, json=[product])  # product를 리스트로 감싸서 전송
+
+        # 응답 결과 확인
+        if response.status_code == 200:
+            print("Request successful")
+            print("Response:", response.json())
+        else:
+            print("Request failed")
+            print("Status Code:", response.status_code)
+            print("Response:", response.text)
+
+
+
+    
     # 데이터베이스에 저장
     # create_table()
     # insert_or_update_products(all_data)
-    send_products(all_data)
+
 
     return all_data
+
+import requests
+
+
+
+# 보낼 데이터
+product_list = [
+    {
+        "productName": "Example Product 1",
+        "price": 1000,
+        "category": "Example Category"
+    },
+    {
+        "productName": "Example Product 2",
+        "price": 2000,
+        "category": "Example Category"
+    }
+]
+
 
 
 # category_urls에 저장된 모든 URL을 크롤링하는 코드
@@ -137,7 +183,7 @@ category_urls = {
     "아우터": "https://www.musinsa.com/categories/item/002?gf=A",
     "바지": "https://www.musinsa.com/categories/item/003?gf=A",
     "원피스/스커트": "https://www.musinsa.com/categories/item/100?gf=A",
-    "신발": "https://www.musinsa.com/categories/item/103?gf=A",
+    # "신발": "https://www.musinsa.com/categories/item/103?gf=A",
     "가방": "https://www.musinsa.com/categories/item/004?gf=A",
     "패션소품": "https://www.musinsa.com/categories/item/101?gf=A",
     "속옷/홈웨어": "https://www.musinsa.com/categories/item/026?gf=A",
@@ -156,7 +202,7 @@ for category, url in category_urls.items():
     
     # 크롤링 함수 호출 (각 카테고리마다 n번 스크롤)
     # 테스트용으로 작게주고, 디폴트는 다긁어옴
-    crawl_category_page(url,2)
+    crawl_category_page(url)
     print(f"{category} 크롤링 완료!\n") 
 
 
