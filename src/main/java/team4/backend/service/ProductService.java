@@ -38,7 +38,7 @@ public class ProductService {
           PriceHistory priceHistory = new PriceHistory(LocalDate.now(), product.getPrice(),
               product);
           priceHistoryRepository.save(priceHistory);
-          boolean isPriceDropped = product.getPrice() > priceHistory.getPrice();
+          boolean isPriceDropped = existingProduct.getPrice() > priceHistory.getPrice();
           if (isPriceDropped) {
             likeService.notifyPriceDrop(product.getId());
           }
@@ -47,10 +47,6 @@ public class ProductService {
         productRepository.save(product);
         PriceHistory priceHistory = new PriceHistory(LocalDate.now(), product.getPrice(), product);
         priceHistoryRepository.save(priceHistory);
-        boolean isPriceDropped = product.getPrice() > priceHistory.getPrice();
-        if (isPriceDropped) {
-          likeService.notifyPriceDrop(product.getId());
-        }
       }
     }
   }

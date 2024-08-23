@@ -7,6 +7,24 @@
   <title>Login Page</title>
 </head>
 <body>
+<header>
+  <div class="header-content">
+    <div class="home-icon" onclick="goToHome()">
+      <img src="/img/home.png" alt="Home Icon">
+    </div>
+    <div class="profile-icon" id="login-button">
+      <img src="/img/profile.png" alt="Profile Icon">
+    </div>
+  </div>
+</header>
+
+<div class="search-bar">
+  <input type="text" placeholder="원하는 상품을 검색해보세요!" id="search-input">
+  <button class="search-button" onclick="searchProduct()">
+    <img src="/img/search.png" alt="Search Icon">
+  </button>
+</div>
+
 <div class="container">
   <div class="login-box">
     <h1>로그인 및 회원가입</h1>
@@ -17,6 +35,11 @@
     </button>
   </div>
 </div>
+
+<footer>
+  <p>무신사스카우터에서 제공하는 제품의 가격과 정보는 주기적으로 업데이트 되고 있습니다.</p>
+</footer>
+
 <script src="/js/script.js"></script>
 </body>
 </html>
