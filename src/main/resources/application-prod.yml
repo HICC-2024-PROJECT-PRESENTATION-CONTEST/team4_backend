@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/team4
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    username: root
+    password: hiamo
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
