@@ -27,9 +27,6 @@ public class User {
 	@Column(nullable = false, unique = true)
 	private String username; // username 필드 추가
 
-	// 이메일 알림 설정 필드
-	private boolean emailNotification = true; // 기본값을 true로 설정
-
 	// 테스트용 생성자
 	public User(String email) {
 		this.email = email;
