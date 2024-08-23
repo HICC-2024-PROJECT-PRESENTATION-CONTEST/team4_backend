@@ -1,3 +1,9 @@
+// 현재 URL을 가져옵니다.
+let currentUrl = window.location.href;
+
+// URLSearchParams 객체를 사용하여 쿼리 파라미터를 파싱합니다.
+let urlParams = new URLSearchParams(window.location.search);
+
 // 'query' 파라미터의 값을 가져옵니다.
 let searchQuery = urlParams.get('query');
 
@@ -58,5 +64,4 @@ function processData(products) {
             priceElements[i].innerHTML = `${product.price.toLocaleString()}원`;
         }
     }
-
 }
