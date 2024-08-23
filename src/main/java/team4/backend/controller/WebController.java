@@ -4,8 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
 public class WebController {
@@ -20,6 +18,11 @@ public class WebController {
 	@GetMapping("/login")
 	public String loginPage() {
 		return "login_page";
+	}
+
+	@GetMapping("/my_page_1")
+	public String myPage1() {
+		return "my_page_1"; // my_page_1.html 파일을 반환
 	}
 
 	@GetMapping("/search")

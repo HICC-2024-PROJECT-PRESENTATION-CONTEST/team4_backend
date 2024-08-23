@@ -28,7 +28,7 @@ public class JwtTokenProviderTest {
 
 	@BeforeEach
 	public void setUp() {
-		jwtTokenProvider = new JwtTokenProvider(TEST_SECRET, EXPIRATION_TIME_MS);
+		jwtTokenProvider = new JwtTokenProvider(TEST_SECRET);
 		MockitoAnnotations.openMocks(this);
 	}
 
