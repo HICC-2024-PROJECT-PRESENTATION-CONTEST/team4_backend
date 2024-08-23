@@ -8,54 +8,23 @@
     <link rel="stylesheet" type="text/css" href="css/header.css" />
     <link rel="stylesheet" type="text/css" href="css/footer.css" />
     <script defer src="js/header_button.js"></script>
-    <script defer src="js/my_page_2.js"></script>
+    <script defer src="js/main.js"></script>
 </head>
 <body>
 <header>
-    <div id="page-logo">
-        <div id="home">
-            <img src="img/홈버튼.PNG" alt="home" />
-        </div>
-        <div id="logo">
-            <img src="img/임시로고.PNG" alt="Logo" />
-        </div>
-        <div id="my">
-            <img src="img/마이페이지.PNG" alt="my" />
-        </div>
-    </div>
-    <div id="search">
-        <form action="" method="get">
-            <input
-                    class="search-txt"
-                    type="text"
-                    name=""
-                    placeholder="원하는 상품을 검색해보세요!"
-            />
-            <button class="search-btn" type="submit">
-                <img src="img/돋보기.png" />
-            </button>
-        </form>
-    </div>
+    <!-- Similar header as my_page_1.html -->
 </header>
 
 <div class="main-content">
     <h1>회원 정보 및 이용약관</h1>
     <p>연결된 email: <span id="connectedEmail"></span></p>
 
-    <label>
-        <input type="checkbox" class="terms-checkbox" checked disabled />
-        <span>서비스 이용 약관 관련 전체 동의</span>
-    </label>
-    <label>
-        <input type="checkbox" class="terms-checkbox" checked disabled />
-        <span>(필수) 개인정보 수집 및 이용 동의</span>
-    </label>
-    <label>
-        <input type="checkbox" class="terms-checkbox" checked disabled />
-        <span>(필수) 개인정보 제3자 제공 동의</span>
-    </label>
+    <!-- Terms checkboxes -->
 
-    <button id="deleteAccountButton">회원 탈퇴</button>
+    <div class="account-actions">
+        <button id="logoutButton">로그아웃</button>
+        <button id="deleteAccountButton">회원 탈퇴</button>
+    </div>
 </div>
 
 <footer class="c_12">
