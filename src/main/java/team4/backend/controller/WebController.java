@@ -19,13 +19,13 @@ public class WebController {
 	// 로그인 페이지
 	@GetMapping("/login")
 	public String loginPage() {
-		return "login_page";
+		return "My_page_1";
 	}
 
 	@GetMapping("/search")
 	public String searchResultsPage(@RequestParam(name = "query", required = false, defaultValue = "") String query, Model model) {
 		// Here you can pass search results to the view
 		model.addAttribute("searchQuery", query);
-		return "search_results_page";
+		return "search_result";
 	}
 }

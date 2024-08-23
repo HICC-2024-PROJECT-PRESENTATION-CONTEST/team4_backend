@@ -157,26 +157,6 @@ def crawl_category_page(url ,scroll_count=999999):
 
     return all_data
 
-import requests
-
-
-
-# 보낼 데이터
-product_list = [
-    {
-        "productName": "Example Product 1",
-        "price": 1000,
-        "category": "Example Category"
-    },
-    {
-        "productName": "Example Product 2",
-        "price": 2000,
-        "category": "Example Category"
-    }
-]
-
-
-
 # category_urls에 저장된 모든 URL을 크롤링하는 코드
 category_urls = {
     "상의": "https://www.musinsa.com/categories/item/001?gf=A",
