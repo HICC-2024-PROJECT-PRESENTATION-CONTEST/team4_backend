@@ -37,6 +37,6 @@ public class WebController {
 	public String searchResultsPage(@RequestParam(name = "query", required = false, defaultValue = "") String query, Model model) {
 		// 검색 결과를 뷰로 전달할 수 있음
 		model.addAttribute("searchQuery", query);
-		return "search_results_page";
+		return "search_result";
 	}
 }
