@@ -1,8 +1,8 @@
 document.getElementById('my').addEventListener('click', function () {
-    window.location.href = 'login_page.html';
+    window.location.href = 'login_page';
 });
 document.getElementById('home').addEventListener('click', function () {
-    window.location.href = 'Initial_page.html';
+    window.location.href = '';
 });
 // 로그인 버튼 이벤트 처리
 document.getElementById('my').addEventListener('click', function () {
@@ -10,13 +10,13 @@ document.getElementById('my').addEventListener('click', function () {
     const isLoggedIn = localStorage.getItem('loggedIn');
 
     if (isLoggedIn) {
-        window.location.href = 'My_page_1.html';
+        window.location.href = 'my_page_1';
     } else {
-        window.location.href = 'login_page.html';
+        window.location.href = 'login';
     }
 });
 
 // 홈 버튼 클릭 시 초기 페이지로 이동
 document.getElementById('home').addEventListener('click', function () {
-    window.location.href = 'Initial_page.html';
+    window.location.href = '';
 });
