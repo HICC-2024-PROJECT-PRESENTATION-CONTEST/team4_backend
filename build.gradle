@@ -41,3 +41,9 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+bootJar {
+    archiveBaseName.set('musinsaServer')
+}
+jar{
+    archiveBaseName.set('musinsaServer')
+}
