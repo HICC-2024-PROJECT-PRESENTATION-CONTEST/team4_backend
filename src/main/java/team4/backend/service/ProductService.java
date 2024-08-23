@@ -1,7 +1,9 @@
 package team4.backend.service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,12 +25,32 @@ public class ProductService {
 
   public void createProduct(List<Product> productList) {
     for (Product product : productList) {
-      PriceHistory priceHistory = new PriceHistory(new Date(), product.getPrice(), product);
-      productRepository.save(product);
-      priceHistoryRepository.save(priceHistory);
-      boolean isPriceDropped = product.getPrice() > priceHistory.getPrice();
-      if (isPriceDropped) {
-        likeService.notifyPriceDrop(product.getId());
+      Optional<Product> existingProductOptional = productRepository.findByProductURL(
+          product.getProductURL());
+      Optional<PriceHistory> existingPriceHistoryOptional = priceHistoryRepository.findByDate(
+          LocalDate.now());
+
+      if (existingProductOptional.isPresent()) {
+        Product existingProduct = existingProductOptional.get();
+        existingProduct.update(product);
+        productRepository.save(existingProduct);
+        if (existingPriceHistoryOptional.isEmpty()) {
+          PriceHistory priceHistory = new PriceHistory(LocalDate.now(), product.getPrice(),
+              product);
+          priceHistoryRepository.save(priceHistory);
+          boolean isPriceDropped = product.getPrice() > priceHistory.getPrice();
+          if (isPriceDropped) {
+            likeService.notifyPriceDrop(product.getId());
+          }
+        }
+      } else {
+        productRepository.save(product);
+        PriceHistory priceHistory = new PriceHistory(LocalDate.now(), product.getPrice(), product);
+        priceHistoryRepository.save(priceHistory);
+        boolean isPriceDropped = product.getPrice() > priceHistory.getPrice();
+        if (isPriceDropped) {
+          likeService.notifyPriceDrop(product.getId());
+        }
       }
     }
   }

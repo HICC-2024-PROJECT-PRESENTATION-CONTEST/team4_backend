@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.util.Date;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,7 @@ public class PriceHistory {
   private Long id;
 
   @Column(nullable = false, unique = false)
-  private Date date;
+  private LocalDate date; // Date 대신 LocalDate 사용
 
   @Column(nullable = false, unique = false)
   private Integer price;
@@ -40,7 +41,7 @@ public class PriceHistory {
   @JsonIgnore
   private Product product;
 
-  public PriceHistory(Date date, Integer price, Product product) {
+  public PriceHistory(LocalDate date, Integer price, Product product) {
     this.date = date;
     this.price = price;
     this.product = product;

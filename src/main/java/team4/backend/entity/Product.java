@@ -53,4 +53,15 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   List<PriceHistory> priceHistoryList = new ArrayList<>();
+
+  public void update(Product product) {
+    this.brand = product.getBrand();
+    this.productName= product.getProductName();
+    this.category = product.getCategory();
+    this.price = product.getPrice();
+    this.originalPrice = product.getOriginalPrice();
+    this.discountRate = product.getDiscountRate();
+    this.imageURL = product.getImageURL();
+    this.productURL = product.getProductURL();
+  }
 }
