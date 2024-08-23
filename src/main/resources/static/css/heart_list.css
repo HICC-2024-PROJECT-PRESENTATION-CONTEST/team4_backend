@@ -171,6 +171,9 @@ section .item {
 section .prd-img {
     border:solid 2px #ffffff;
 }
+
+
+
 section .img-wrapper {
     position: relative;
     width:100%;

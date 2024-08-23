@@ -18,31 +18,19 @@ public class JwtTokenProvider {
 	@Value("${spring.security.jwt.expiration-time}")
 	private int jwtExpirationInMs;
 
-	public JwtTokenProvider(@Value("${spring.security.jwt.secret}") String jwtSecret) {
-		byte[] keyBytes = Base64.getDecoder().decode(jwtSecret);
-		this.jwtSecret = Keys.hmacShaKeyFor(keyBytes);
-	}
-
 	public JwtTokenProvider() {
-		this.jwtSecret = null;
-	}
-
-	// 테스트를 위한 생성자
-	public JwtTokenProvider(String jwtSecret, int jwtExpirationInMs) {
-		byte[] keyBytes = Base64.getDecoder().decode(jwtSecret);
-		this.jwtSecret = Keys.hmacShaKeyFor(keyBytes);
-		this.jwtExpirationInMs = jwtExpirationInMs;
+		this.jwtSecret = Keys.secretKeyFor(SignatureAlgorithm.HS512);  // 자동으로 강력한 키를 생성
 	}
 
 	// JWT 토큰 생성
 	public String generateToken(Authentication authentication) {
-
 		Date now = new Date();
 		Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
 		// JWT 토큰 생성 및 반환
 		return Jwts.builder()
-			.setIssuedAt(new Date())
+			.setSubject(authentication.getName())
+			.setIssuedAt(now)
 			.setExpiration(expiryDate)
 			.signWith(jwtSecret, SignatureAlgorithm.HS512)
 			.compact();
@@ -59,7 +47,7 @@ public class JwtTokenProvider {
 		return claims.getSubject();
 	}
 
-	// JWT 토큰에서 사용자 이메일 추출
+	// JWT 토큰 검증
 	public boolean validateToken(String authToken) {
 		try {
 			Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(authToken);
