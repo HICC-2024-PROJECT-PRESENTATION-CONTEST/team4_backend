@@ -8,6 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Redirect to delete account page
     deleteAccountButton.addEventListener('click', function () {
-        window.location.href = 'delete_account.html';
+        window.location.href = 'delete_account';
     });
 });
