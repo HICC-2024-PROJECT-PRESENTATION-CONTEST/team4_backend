@@ -58,7 +58,6 @@ public class UserController {
 		String email = authentication.getName();
 		User user = userService.findByEmail(email)
 			.orElseThrow(() -> new RuntimeException("User not found"));
-		user.setEmailNotification(emailNotification);
 		userService.save(user);
 		return ResponseEntity.ok().build();
 	}
