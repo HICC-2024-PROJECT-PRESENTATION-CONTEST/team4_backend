@@ -28,40 +28,36 @@ fetch(`api/product/search?query=${searchQuery}`)
         console.error('Error:', error);
     });
 
-// 데이터 처리 함수
 function processData(products) {
-    // 예를 들어, 제품 정보를 DOM에 표시하는 코드
-    let imageElements = document.getElementsByClassName("image");
-    let brandNameElements = document.getElementsByClassName("brand-name");
-    let productNameElements = document.getElementsByClassName("prd-name");
-    let discountRateElements = document.getElementsByClassName("discount-rate");
-    let priceElements = document.getElementsByClassName("price");
+     // 템플릿과 부모 요소 가져오기
+     const template = document.getElementById('product-template').content;
+     const container = document.getElementById('search-list');
 
-    // 제품 개수를 업데이트
-    document.getElementById("count").textContent = products.length;
+     // 제품 개수를 업데이트
+     document.getElementById("count").textContent = products.length;
 
-    // 제품 데이터를 DOM에 삽입
-    for (let i = 0; i < products.length; i++) {
-        const product = products[i];
+     // 기존 콘텐츠 지우기
+     container.innerHTML = '';
 
-        if (imageElements[i]) {
-            imageElements[i].src = product.imageURL;
-        }
+     // 제품 데이터를 DOM에 삽입
+     products.forEach(product => {
+         // 템플릿 복사
+         const clone = document.importNode(template, true);
 
-        if (brandNameElements[i]) {
-            brandNameElements[i].innerHTML = product.brand;
-        }
+         // 데이터 삽입
+         const imageElement = clone.querySelector('.image');
+         const brandNameElement = clone.querySelector('.brand-name');
+         const productNameElement = clone.querySelector('.prd-name');
+         const discountRateElement = clone.querySelector('.discount-rate');
+         const priceElement = clone.querySelector('.price');
 
-        if (productNameElements[i]) {
-            productNameElements[i].innerHTML = product.productName;
-        }
+         imageElement.src = product.imageURL;
+         brandNameElement.textContent = product.brand;
+         productNameElement.textContent = product.productName;
+         discountRateElement.textContent = product.discountRate;
+         priceElement.textContent = `${product.price.toLocaleString()}원`;
 
-        if (discountRateElements[i]) {
-            discountRateElements[i].innerHTML = product.discountRate;
-        }
-
-        if (priceElements[i]) {
-            priceElements[i].innerHTML = `${product.price.toLocaleString()}원`;
-        }
-    }
-}
+         // 부모 컨테이너에 추가
+         container.appendChild(clone);
+     });
+ }
