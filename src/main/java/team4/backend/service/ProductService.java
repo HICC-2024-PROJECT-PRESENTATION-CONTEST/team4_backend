@@ -86,6 +86,11 @@ public class ProductService {
         .orElseThrow(
             () -> new BusinessException(HttpStatus.BAD_REQUEST, ErrorCode.NOT_FOUND_PRODUCT));
   }
+  public String getProductCategory(Long productId) {
+    Product product = productRepository.findById(productId)
+        .orElseThrow(() -> new BusinessException(HttpStatus.BAD_REQUEST, ErrorCode.NOT_FOUND_PRODUCT));
+    return product.getCategory();
+  }
 
   public List<String> autoComplete(String query) {
     return productRepository.findTop10ByProductNameContaining(query).stream()
