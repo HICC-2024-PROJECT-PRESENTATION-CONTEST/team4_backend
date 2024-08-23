@@ -1,13 +1,14 @@
 import MySQLdb
 import numpy as np
 import pandas as pd
+import json
 
 def get_db_connection():
     conn = MySQLdb.connect(
         user="root",
         passwd="1234",
         host="127.0.0.1",
-        db="mooDB",
+        db="team4",
         charset="utf8"
     )
     cur = conn.cursor()
@@ -17,7 +18,7 @@ def create_table():
     conn, cur = get_db_connection()
     
     # DB에서 SQL문을 실행하거나 실행된 결과를 돌려받는 통로역할.
-    cur.execute("""CREATE TABLE IF NOT EXISTS Products (  
+    cur.execute("""CREATE TABLE IF NOT EXISTS product (  
         Category VARCHAR(255),
         Brand VARCHAR(255), 
         ProductName VARCHAR(255) PRIMARY KEY,
@@ -36,7 +37,7 @@ def insert_or_update_products(products):
     conn, cur = get_db_connection()
     
     query = """
-    INSERT INTO Products (Category, Brand, ProductName, Price, DiscountRate, OriginalPrice, ProductURL, ImageURL)
+    INSERT INTO product (Category, Brand, ProductName, Price, DiscountRate, OriginalPrice, ProductURL, ImageURL)
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
     ON DUPLICATE KEY UPDATE
     Price = VALUES(Price),
@@ -57,7 +58,7 @@ def insert_or_update_products(products):
 def get_all_data():
     conn, cur = get_db_connection()
 
-    query = "SELECT * FROM products;"
+    query = "SELECT * FROM product;"
 
     # pandas의 read_sql() 함수를 사용하여 쿼리 결과를 DataFrame으로 변환
     df = pd.read_sql(query, conn)
@@ -73,9 +74,16 @@ def convert_price(price_str):    # 가격 문자열에서 숫자만 추출하여
     return int(price_str.replace('원', '').replace(',', '').strip())
 
 def send_products(products):
+    product_keys = ["category", "brand", "productName", "price", "discountRate", "originalPrice", "productURL", "imageURL"]
+    
+    product_dicts = []
     for product in products:
+        # 가격 필드 변환
         product[3] = convert_price(product[3])
         product[5] = convert_price(product[5])
-        print(product)
-
-
+        
+        # 리스트를 딕셔너리로 변환
+        product_dict = dict(zip(product_keys, product))
+        product_dicts.append(product_dict)
+    
+    return product_dicts
