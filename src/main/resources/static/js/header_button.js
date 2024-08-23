@@ -43,20 +43,21 @@ if (token) {
 }
 
 // 검색 폼 제출 이벤트 처리
-document.getElementById('search')?.addEventListener('submit', function(event) {
-    // 폼 제출 시 페이지 새로 고침 방지
+
+document.getElementById('search').addEventListener('submit', function(event) {
+// 폼 제출 시 페이지 새로 고침 방지
     event.preventDefault();
 
-    // 입력 필드의 값 가져오기
+// 입력 필드의 값 가져오기
     let searchInput = document.getElementById('search-txt').value;
 
-    // 변수에 저장
-    let searchQuery = searchInput;
+// 변수에 저장
+    let searchQuery = encodeURIComponent(searchInput); // URL에 안전하게 포함시키기 위해 인코딩
 
-    fetch(`/api/product/search?query=${encodeURIComponent(searchQuery)}&size=100&page=0`)
-        .then((response) => response.text())
-        .then((result) => {
-            console.log(result);
-        });
+// URL에 searchQuery 변수 값을 삽입
+    let targetUrl = `/search?query=${searchQuery}`;
 
+// 페이지 이동
+    window.location.href = targetUrl;
+// 필요한 추가 작업 수행 (예: 폼 데이터 전송, 필드 비우기 등)
 });
