@@ -20,11 +20,11 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-		// 인증 성공 시 JWT 토큰 생성
+		// JWT 토큰 생성
 		String jwt = jwtTokenProvider.generateToken(authentication);
 
-		// 응답 헤더에 JWT 토큰 추가
-		response.addHeader("Authorization", "Bearer " + jwt);
-		super.onAuthenticationSuccess(request, response, authentication);
+		// 클라이언트에 리디렉션할 URL 설정 (기본 URL에 토큰을 쿼리 파라미터로 전달)
+		String redirectUrl = "http://localhost:my_page_1?token=" + jwt;
+		getRedirectStrategy().sendRedirect(request, response, redirectUrl);
 	}
 }

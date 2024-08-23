@@ -1,19 +1,21 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Initial</title>
-    <link rel="stylesheet" href="css/initial_page.css" />
+    <title>Create Account Page</title>
+    <link rel="stylesheet" href="css/create_account_page.css" />
     <link rel="stylesheet" type="text/css" href="css/header.css" />
     <link rel="stylesheet" type="text/css" href="css/footer.css" />
     <script defer src="js/header_button.js"></script>
+    <script defer src="js/create_account_page.js"></script>
 </head>
 <body>
 <header>
     <div id="page-logo">
         <div id="home">
-            <img src="img/홈.PNG" alt="home" />
+            <img src="img/홈버튼.PNG" alt="home" />
         </div>
         <div id="logo">
             <img src="img/임시로고.PNG" alt="Logo" />
@@ -36,15 +38,25 @@
         </form>
     </div>
 </header>
-
 <div class="main-content">
-    <p>로그인 시 찜하기 및 가격 변동 알림 받기가 가능합니다.</p>
-    <h1>옷 살 때마다 항상 바뀌는 가격,<br />편하게 비교해보세요!</h1>
-    <p>
-        무신사 스카우터는 소비자들의 합리적인 구매를 위한 목적으로
-        개발되었습니다.<br />저희는 수익을 창출하지 않습니다.
-    </p>
-    <p>(대충 쓸 말 있으면 알려주세요)<br />(없어도 됨)</p>
+    <h1>서비스 가입</h1>
+    <label>
+        <input type="checkbox" id="allAgree" />
+        <span>전체 동의</span>
+    </label>
+    <label>
+        <input type="checkbox" class="terms-checkbox" required />
+        <span>서비스 이용 약관 관련 전체 동의</span>
+    </label>
+    <label>
+        <input type="checkbox" class="terms-checkbox" required />
+        <span>(필수) 개인정보 수집 및 이용 동의</span>
+    </label>
+    <label>
+        <input type="checkbox" class="terms-checkbox" required />
+        <span>(필수) 개인정보 제3자 제공 동의</span>
+    </label>
+    <button id="googleButton" disabled>Google로 계속하기</button>
 </div>
 
 <footer class="c_12">

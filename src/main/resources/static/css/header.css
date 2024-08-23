@@ -1,0 +1,72 @@
+
+header {
+    height: 150px;
+    margin: 2px;
+    text-align: center;
+    width: 100%;
+}
+
+header #logo {
+    width: 40%;
+    display: inline-block;
+}
+
+header #home {
+    width: 20%;
+    display: inline-block;
+}
+
+header #my {
+    width: 20%;
+    display: inline-block;
+}
+
+@media only screen and (max-width: 1024px) {
+    header #logo {
+        width: 75%;
+    }
+
+    header #home {
+        width: 10%;
+    }
+
+    header #my {
+        width: 10%;
+    }
+}
+
+#search {
+}
+
+.search-txt {
+    position: relative;
+    left: 20px;
+    height: 50px;
+    width: 50%;
+    font-size: 16px;
+    margin-top: 10px;
+    padding: 0 20px;
+    border-radius: 25px;
+    color: #868e96;
+    border: none;
+}
+
+.search-btn {
+    position: relative;
+    right: 30px;
+    top: 7px;
+    height: 25px;
+    border: none;
+    background-color: #ffffff;
+}
+
+.search-btn img {
+    position: relative;
+    height: 25px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .search-txt {
+        width: 90%; /* 너비 100% 설정 */
+    }
+}
