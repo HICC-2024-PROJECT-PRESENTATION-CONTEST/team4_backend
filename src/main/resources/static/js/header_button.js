@@ -1,20 +1,21 @@
-document.getElementById('my').addEventListener('click', function () {
-    window.location.href = 'login_page';
-});
 document.getElementById('home').addEventListener('click', function () {
     window.location.href = '';
 });
-// 로그인 버튼 이벤트 처리
-document.getElementById('my').addEventListener('click', function () {
-    // 로그인 상태 확인 (예시로 localStorage 사용, 실제 구현 시 서버와 통신 필요)
-    const isLoggedIn = localStorage.getItem('loggedIn');
 
-    if (isLoggedIn) {
-        window.location.href = 'my_page_1';
-    } else {
+//로그인 여부 체크 후, 토큰 있으면 my_page_1 페이지, 없으면 login 페이지
+function checkToken() {
+    // 로컬 스토리지에서 JWT 가져오기
+    const token = localStorage.getItem('jwtToken');
+
+    if (!token) {
         window.location.href = 'login';
+        return;
     }
-});
+    else{
+        window.location.href = 'my_page_1';
+    }
+}
+document.getElementById('my').addEventListener('click', checkToken);
 
 document.getElementById('search').addEventListener('submit', function(event) {
     // 폼 제출 시 페이지 새로 고침 방지
