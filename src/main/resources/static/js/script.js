@@ -2,11 +2,11 @@
 function loginWithGoogle() {
     window.location.href = '/oauth2/authorization/google';
 }
-
-// 초기 페이지 이동
-function goToHome() {
-    window.location.href = "/";
-}
+//
+// // 초기 페이지 이동
+// function goToHome() {
+//     window.location.href = "/";
+// }
 
 // 로그인 상태 확인 및 처리
 document.getElementById('login-button').addEventListener('click', function () {
@@ -18,10 +18,10 @@ document.getElementById('login-button').addEventListener('click', function () {
     }
 });
 
-// 홈 버튼 이벤트 처리
-document.getElementById('home').addEventListener('click', function () {
-    window.location.href = 'Initial_page';
-});
+// // 홈 버튼 이벤트 처리
+// document.getElementById('home').addEventListener('click', function () {
+//     window.location.href = 'Initial_page';
+// });
 
 // 마이페이지 버튼 이벤트 처리
 document.getElementById('my').addEventListener('click', function () {

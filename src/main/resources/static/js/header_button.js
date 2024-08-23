@@ -16,7 +16,19 @@ document.getElementById('my').addEventListener('click', function () {
     }
 });
 
-// 홈 버튼 클릭 시 초기 페이지로 이동
-document.getElementById('home').addEventListener('click', function () {
-    window.location.href = '';
+document.getElementById('search').addEventListener('submit', function(event) {
+    // 폼 제출 시 페이지 새로 고침 방지
+    event.preventDefault();
+
+    // 입력 필드의 값 가져오기
+    let searchInput = document.getElementById('search-txt').value;
+
+    // 변수에 저장
+    let searchQuery = searchInput;
+
+    fetch("GET /api/product/search?query={searchQuery}&size={사이즈 default = 100 & page={페이지 default = 0}")
+        .then((response) => response.txt())
+        .then((result) => { console.log(result);});
+
+    // 필요한 추가 작업 수행 (예: 폼 데이터 전송, 필드 비우기 등)
 });

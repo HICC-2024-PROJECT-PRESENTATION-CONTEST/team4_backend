@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #353535;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+    padding: 0 5%; /* Adjusted padding for responsiveness */
+}
+
+/* Styles for the login box */
+.login-box {
+    text-align: center;
+    max-width: 400px;  /* Sets a max width for larger screens */
+    width: 100%;
+    padding: 20px;
+    background-color: #454545;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Headline within the login box */
+.login-box h1 {
+    margin-bottom: 20px;
+    font-size: 1.5em;  /* Larger font size for the headline */
+}
+
+/* Description text */
+.login-box p {
+    margin-bottom: 30px;
+    font-size: 1em;  /* Consistent font size */
+    color: #ccc;  /* Lighter color for better contrast */
+}
+
+/* Styles for the Google login button */
+.login-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    color: #000;
+    font-weight: bold;
+}
+
+.login-button img {
+    height: 20px;
+    margin-right: 10px;
+}
+
+/* Secondary text within the Google login button */
+.login-button span {
+    font-size: 0.875em;  /* Slightly smaller text for the subtext */
+    color: #666;  /* Lighter shade for subtext */
+}
+
+/* Styling the signup prompt */
+.signup-prompt {
+    text-align: center;
+    margin-top: 10px;  /* Add some space above */
+}
+
+/* Paragraph styling within the signup prompt */
+.signup-prompt p {
+    font-size: 0.9em;
+    color: #ccc;  /* Consistent color with the description */
+}
+
+/* Styling for the signup link */
+.signup-prompt a {
+    color: #fff;  /* Always white text */
+    text-decoration: underline;  /* Always underlined */
+    font-weight: bold;  /* Makes the link stand out */
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .login-box h1 {
+        font-size: 1.25em;  /* Adjust headline size for smaller screens */
+    }
+
+    .login-button {
+        padding: 12px;
+        font-size: 0.9em;  /* Adjust button size for smaller screens */
+    }
+
+    .signup-prompt p {
+        font-size: 0.85em;  /* Adjust font size for smaller screens */
+    }
+}
