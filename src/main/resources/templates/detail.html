@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script defer src="js/header_button.js"></script>
+  <Title>Detail</Title>
+  <link rel = "stylesheet" type = "text/css" href = "css/detail.css">
+  <link rel = "stylesheet" type = "text/css" href = "css/header.css">
+  <link rel = "stylesheet" type = "text/css" href = "css/footer.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+</head>
+<body>
+<header>
+  <div id = page-logo>
+    <div id="home">
+      <img src="img/홈버튼.PNG" alt="home">
+    </div>
+    <div id="logo">
+      <img src="img/임시로고.PNG" alt="Logo">
+    </div>
+    <div id="my">
+      <img src="img/마이페이지.PNG" alt="my">
+    </div>
+  </div>
+  <div id="search">
+    <form action="" method="get">
+      <input class="search-txt" type="text" name="" placeholder="원하는 상품을 검색해보세요!">
+      <button class="search-btn" type="submit">
+        <img src="img/돋보기.png">
+      </button>
+    </form>
+  </div>
+</header>
+<aside class = "c_5">
+  <ul>
+    <li class = "img"><img src = "img/임시이미지.png"></li>
+  </ul>
+</aside>
+<section class = "c_7">
+  <div id = "category">
+    <a href = "#">카테고리 1</a> > <a href = "#">카테고리 2</a> > <a href = "#">카테고리 3</a> > <a href = "#">카테고리 4</a>
+  </div>
+  <div id = "heart-container">
+    <img id = "heart" src="img/찜하기.png" alt ="heart">
+  </div>
+  <div id = "prd-name">
+    <a href = "#">브랜드명</a> | ACG Cinder Cone 윈드프루프 재킷 M - 썬더 블루:데이브레이크:서밋 화이트 / DB0979-437
+  </div>
+  <div id = "link_and_price">
+    <div id = "musinsa-link" style=" cursor: pointer;" onclick="window.open('#');">
+      <span style = "color:#000000; line-height:35px;"><b>구매링크</b></span>
+    </div>
+    <div id = "price">
+      <span style = "color:#ff7777";>X%  </span><b>x,xxx원</b>
+    </div>
+  </div>
+  <div id="price-graph">
+    <div id="date-range">3개월 / 전체</div>
+    <h4 id="graph-inf">가격 그래프</h4>
+    <div id="graph">
+      <div class="row">
+        <div class="col-md-12">
+          <canvas id="chart-container"></canvas>
+        </div>
+      </div>
+    </div>
+    <script>
+      const chartEl = document.getElementById('chart-container').getContext('2d');
+      const data = [12800, 21900, 14700, 14700];
+      const barChart = new Chart(chartEl, {
+        type: 'line',
+        data: {
+          labels: ['5/19', '5/28', '8/2', '8/19'],
+          datasets: [{
+            label: '', // 빈 문자열로 레이블 제거
+            borderWidth: 1,
+            data: data,
+            fill: false,
+            borderColor: '#FF7777', // 선 색상
+            backgroundColor: '#FF7777', // 점 색상
+            pointRadius: 3 // 점의 반지름
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            datalabels: {
+              display: false // 데이터 라벨을 숨깁니다.
+            },
+            legend: {
+              display: false // 범례와 사각형을 숨깁니다.
+            },
+            tooltip: {
+              enabled: true, // 툴팁을 활성화합니다.
+              mode: 'nearest', // 가장 가까운 데이터 포인트에서 툴팁을 표시합니다.
+              intersect: false, // 교차하지 않고도 툴팁을 표시합니다.
+              callbacks: {
+                label: function(tooltipItem) {
+                  return tooltipItem.raw.toLocaleString('ko-KR') + '원'; // 툴팁에 표시할 라벨 포맷팅
+                }
+              }
+            }
+          },
+          layout: {
+            padding: {
+              top:30,
+              left:20,
+              right:20
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true,
+              ticks: {
+                color: 'white' // X축 글자 색상
+              },
+              border: {
+                color: 'white' // X축 선 색상
+              },
+              grid: {
+                display: false, // X축 격자선 숨기기
+                borderColor: 'green' // X축 선 색상
+              }
+            },
+            y: {
+              beginAtZero: true,
+              min: Math.min(...data) - 3000, // 최소값을 데이터의 최소값에 맞춤
+              max: Math.max(...data) + 3000, // 최대값을 데이터의 최대값에 맞춤
+              ticks: {
+                color: 'white',
+                callback: function(value) {
+                  return value.toLocaleString('ko-KR') + '원'; // Y축 라벨 포맷팅
+                },
+                maxTicksLimit: 5
+              },
+              border: {
+                color: 'white' // X축 선 색상
+              },
+              grid: {
+                display: false, // X축 격자선 숨기기
+                borderColor: 'green' // X축 선 색상
+              }
+            }
+          }
+        }
+      });
+    </script>
+  </div>
+  <div id = "price-avg">
+    <p style="line-height:30px;">정가 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: xx,xxx원</p>
+    <p style='line-height:30px;'>최고 할인가 &nbsp;: xx,xxx원</p>
+    <p style='line-height:30px;'>최저 할인가 &nbsp;: xx,xxx원</p>
+    <p style='line-height:30px;'>평균 가격 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: xx,xxx원</p>
+    <hr>
+  </div>
+</section>
+<aside class = "c_3"></aside>
+<main class = "c_6">
+  <h3 id = "recommend">추천 상품</h3>
+  <div id = "ai-recommend">유사 상품 데이터 공간</div>
+</main>
+<aside class = "c_3"></aside>
+<footer class = "c_12">
+  <p><a href = "#">개인정보처리방침</a></p>
+  <p>email : <a href = "#">1234@gmail.com</a></p>
+</footer>
+<script src="js/detail.js"></script>
+</body>
+</html>

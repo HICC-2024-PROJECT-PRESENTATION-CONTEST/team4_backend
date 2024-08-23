@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #353535;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+.main-content {
+    text-align: center;
+    margin-top: 5%;
+    padding: 0 2%;
+}
+
+.main-content h1 {
+    margin: 2% 0;
+    font-size: 1.5em;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .search-bar {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .search-bar input {
+        border-radius: 25px;
+        margin-bottom: 10px;
+    }
+
+    .search-button {
+        border-radius: 25px;
+        width: 100%;
+    }
+
+    .header-content {
+        flex-direction: column;
+    }
+
+    .home-icon img,
+    .profile-icon img {
+        width: 10%;
+        height: auto;
+    }
+
+    .main-content h1 {
+        font-size: 1.125em;
+    }
+
+}
