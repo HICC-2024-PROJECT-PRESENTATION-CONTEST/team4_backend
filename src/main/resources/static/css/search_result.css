@@ -160,12 +160,12 @@ section {
 section #prd-count {
     text-align: center;
     color:#868e96;
-    margin-bottom:10px;
+    margin-top:40px;
 }
 section .item {
     float:left;
     text-align:left;
-    margin-top:10px;
+    margin-top:30px;
     width:22%;
 }
 section .prd-img {
