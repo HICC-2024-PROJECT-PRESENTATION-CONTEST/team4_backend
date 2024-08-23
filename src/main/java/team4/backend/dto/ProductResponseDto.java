@@ -29,5 +29,6 @@ public class ProductResponseDto {
     this.originalPrice = product.getOriginalPrice();
     this.productURL = product.getProductURL();
     this.priceHistoryList = product.getPriceHistoryList();
+    this.imageURL = product.getImageURL();
   }
 }
