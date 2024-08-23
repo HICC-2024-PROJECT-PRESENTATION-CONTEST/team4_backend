@@ -8,13 +8,13 @@ on:
   pull_request:
     branches: [ "main" ]
 
-# 워크 플로우가 깃 레포에 대한 권한을 읽기만 가능하게 설정한다.
+# 워크플로우가 깃 레포에 대한 권한을 읽기만 가능하게 설정한다.
 permissions:
   contents: read
 
 # 워크플로우에서 할 작업 정의한다.
 jobs:
-  # 작업 환경 = 우분투 최신 버전
+  # 빌드 작업
   build:
     runs-on: ubuntu-latest
 
@@ -33,7 +33,6 @@ jobs:
       - uses: actions/checkout@v3
 
       # JDK 21 설정
-      # temurin = Adoptium에서 제공하는 JDK
       - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
@@ -86,5 +85,10 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
           chmod 600 private_key.pem
           scp -i private_key.pem -o StrictHostKeyChecking=no build/libs/musinsaServer-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/musinsaServer.jar
-          ssh -i private_key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar /home/${{ secrets.EC2_USERNAME }}/musinsaServer.jar > app.log 2>&1 &"
+          ssh -i private_key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
+            # 기존 Java 프로세스를 종료
+            pgrep java | xargs kill -9 || true
+            # 새로 JAR 파일을 실행
+            nohup java -jar /home/${{ secrets.EC2_USERNAME }}/musinsaServer.jar > /home/${{ secrets.EC2_USERNAME }}/app.log 2>&1 &
+          EOF
           rm -f private_key.pem
