@@ -1,26 +1,3 @@
-// my_page_1.js
-
-// 상품 검색 기능
-function searchProduct() {
-    const searchQuery = document.getElementById('search-input').value;
-    if (searchQuery) {
-        window.location.href = `/search?query=${searchQuery}`;
-    }
-}
-
-// API 호출 시 JWT 토큰을 Authorization 헤더에 추가
-function fetchWithAuth(url, options = {}) {
-    const token = localStorage.getItem('jwtToken');
-    const headers = new Headers(options.headers || {});
-    headers.append('Authorization', `Bearer ${token}`);
-
-    return fetch(url, {
-        ...options,
-        headers,
-    });
-}
-
-// 로그인 후 JWT 토큰 저장
 function handleLoginResponse(token) {
     try {
         localStorage.setItem('jwtToken', token);
@@ -28,12 +5,6 @@ function handleLoginResponse(token) {
     } catch (e) {
         console.error("Failed to save the token to localStorage", e);
     }
-}
-
-// URL에서 토큰을 추출하는 함수
-function getTokenFromUrl() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('token');
 }
 
 // 토큰을 Local Storage에 저장하고 URL에서 제거하는 함수

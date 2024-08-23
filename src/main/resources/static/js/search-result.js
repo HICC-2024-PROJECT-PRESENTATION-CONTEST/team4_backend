@@ -2,10 +2,10 @@
 let currentUrl = window.location.href;
 
 // URLSearchParams 객체를 사용하여 쿼리 파라미터를 파싱합니다.
-let urlParams = new URLSearchParams(window.location.search);
+const queryParams = new URLSearchParams(window.location.search);
 
 // 'query' 파라미터의 값을 가져옵니다.
-let searchQuery = urlParams.get('query');
+const searchQuery = queryParams.get('query');
 
 // fetch 요청을 보내고 응답을 처리합니다.
 fetch(`api/product/search?query=${searchQuery}`)
