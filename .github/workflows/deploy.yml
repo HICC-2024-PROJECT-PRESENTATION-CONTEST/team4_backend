@@ -50,7 +50,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: musinsaServer
-          path: build/libs/musinsaServer-0.0.1-SNAPSHOT.jar
+          path: build/libs/musinsaServer.jar
+
+
 
   # 배포 **
   deploy:
@@ -65,6 +67,8 @@ jobs:
       JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
       GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+
+
 
     # 위의 빌드작업한 JAR 파일 = 아티팩트를 다운로드
     steps:
@@ -86,7 +90,10 @@ jobs:
           scp -i private_key.pem -o StrictHostKeyChecking=no build/libs/musinsaServer-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/musinsaServer.jar
           ssh -i private_key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar /home/${{ secrets.EC2_USERNAME }}/musinsaServer.jar > app.log 2>&1 &"
           rm -f private_key.pem
-          echo "SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}"
-          echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}"
-          echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}"
+                - name: Deploy to EC2
+
+        with:
+            SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
+            SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+            SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
 

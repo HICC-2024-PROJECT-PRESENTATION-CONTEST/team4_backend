@@ -14,8 +14,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: asdasdasd
-    password: asdasd
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -26,7 +26,7 @@ spring:
   security:
     jwt:
       secret:
-        key: asdasd12
+        key: ${JWT_SECRET_KEY}
       expiration-time: 3600000 # 1 hour in milliseconds
       token-prefix: Bearer
       header-string: Authorization
@@ -34,8 +34,8 @@ spring:
       client:
         registration:
           google:
-            client-id: asdasd
-            client-secret: asdasd
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
             scope: email,profile,openid
         provider:
           google:
