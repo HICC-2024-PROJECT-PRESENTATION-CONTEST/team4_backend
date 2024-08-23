@@ -1,0 +1,169 @@
+/* 공통 스타일 */
+body {
+  background-color: #353535;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* 메인 콘텐츠 스타일 */
+.main-content {
+  padding: 2% 5%; /* 위아래 2%, 좌우 5% */
+  text-align: center;
+}
+
+.main-content label {
+  display: block;
+  color: gray;
+  margin: 10px 0;
+}
+
+#googleButton {
+  background-color: gray;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: not-allowed;
+}
+
+#googleButton:enabled {
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 2vw; /* 뷰포트 너비의 2% */
+  margin-bottom: 2%;
+}
+
+/* 찜 목록 섹션 */
+.wishlist-section {
+  margin-bottom: 5%;
+}
+
+.wishlist-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2%;
+  font-size: 1.5vw; /* 뷰포트 너비의 1.5% */
+}
+
+.wishlist-title a {
+  color: #ffffff; /* 원하는 기본 색상 */
+  text-decoration: none; /* 기본 밑줄 제거 */
+}
+
+.wishlist-items {
+  display: flex;
+  gap: 2%;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.wishlist-items .item {
+  flex: 0 0 18%; /* 각 아이템이 18%의 너비를 가짐 */
+  background-color: #505050;
+  border-radius: 0.5vw; /* 뷰포트 너비의 0.5% */
+  padding: 2%;
+  text-align: left;
+}
+
+.wishlist-items img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5vw; /* 뷰포트 너비의 0.5% */
+  margin-bottom: 2%;
+}
+
+.wishlist-items p {
+  font-size: 1vw; /* 뷰포트 너비의 1% */
+  line-height: 1.4;
+}
+
+.wishlist-items span {
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+/* 이메일 알림 섹션 */
+.email-notification {
+  margin-bottom: 5%;
+  font-size: 1.5vw; /* 뷰포트 너비의 1.5% */
+}
+
+.email-notification label {
+  margin-right: 2%;
+}
+
+.email-notification input[type='checkbox'] {
+  transform: scale(1.2);
+}
+
+/* 회원 정보 및 이용약관 버튼 */
+.terms-section {
+  margin-bottom: 5%;
+}
+
+.terms-section button {
+  padding: 1.5% 2%;
+  font-size: 1.5vw; /* 뷰포트 너비의 1.5% */
+  background-color: #606060;
+  color: white;
+  border: none;
+  border-radius: 0.5vw; /* 뷰포트 너비의 0.5% */
+  cursor: pointer;
+}
+
+.terms-section button:hover {
+  background-color: #707070;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+  .wishlist-items {
+    gap: 3%;
+  }
+
+  .wishlist-items .item {
+    flex: 0 0 45%; /* 각 아이템이 45%의 너비를 가짐 */
+  }
+
+  h1 {
+    font-size: 4vw; /* 뷰포트 너비의 4% */
+  }
+
+  .wishlist-title,
+  .email-notification,
+  .terms-section button {
+    font-size: 3vw; /* 뷰포트 너비의 3% */
+  }
+
+  .email-notification input[type='checkbox'] {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .wishlist-items {
+    gap: 5%;
+  }
+
+  .wishlist-items .item {
+    flex: 0 0 90%; /* 각 아이템이 90%의 너비를 가짐 */
+  }
+
+  h1 {
+    font-size: 5vw; /* 뷰포트 너비의 5% */
+  }
+
+  .wishlist-title,
+  .email-notification,
+  .terms-section button {
+    font-size: 4vw; /* 뷰포트 너비의 4% */
+  }
+
+  .email-notification input[type='checkbox'] {
+    transform: scale(0.8);
+  }
+}
