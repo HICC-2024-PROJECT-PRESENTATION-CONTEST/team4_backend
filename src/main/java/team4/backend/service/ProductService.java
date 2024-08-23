@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import team4.backend.dto.ProductResponseDto;
@@ -66,12 +68,10 @@ public class ProductService {
     }
   }
 
-  public List<ProductResponseDto> searchProducts(String query) {
-    List<Product> productList = productRepository.findByProductNameContaining(query);
+  public Page<ProductResponseDto> searchProducts(String query, Pageable pageable) {
+    Page<Product> productPage = productRepository.findByProductNameContaining(query, pageable);
 
-    return productList.stream()
-        .map(ProductResponseDto::new)
-        .toList();
+    return productPage.map(ProductResponseDto::new);
   }
 
   public ProductResponseDto searchProduct(Long productId) {
