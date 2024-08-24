@@ -23,6 +23,7 @@ import team4.backend.security.JwtAuthenticationEntryPoint;
 import team4.backend.security.JwtAuthenticationFilter;
 import team4.backend.security.JwtTokenProvider;
 import team4.backend.security.OAuth2LoginSuccessHandler;
+import team4.backend.service.UserService;
 
 import java.util.Collections;
 
@@ -44,6 +45,9 @@ public class SecurityConfig {
 
 	@Autowired
 	private OAuth2AuthorizedClientService authorizedClientService;
+
+	@Autowired
+	private UserService userService;  // Add UserService as a dependency
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -80,7 +84,7 @@ public class SecurityConfig {
 
 	@Bean
 	public OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler() {
-		return new OAuth2LoginSuccessHandler(jwtTokenProvider);
+		return new OAuth2LoginSuccessHandler(jwtTokenProvider, userService);
 	}
 
 	// CORS 설정
