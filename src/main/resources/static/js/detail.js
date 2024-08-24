@@ -70,6 +70,7 @@ function processCategory(data) {
     category.textContent = data;
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
     const heartIcon = document.querySelector('#heart');
 
@@ -87,14 +88,46 @@ document.addEventListener('DOMContentLoaded', () => {
         const isAuthenticated = localStorage.getItem('jwtToken') !== null;
         if (currentSrc.includes(heartEmpty) && isAuthenticated) {
             heartIcon.setAttribute('src', heartFilled); // 채워진 하트 이미지로 변경
+
             // userid, productid를 사용해서 찜목록 추가 post fetch 코드 필요
-            fetch('/api/likes/{userId}/product/{productId}')
-        }
-        else if (isAuthenticated === false) {
-        alert("찜하기는 로그인 이후에 가능합니다.");
-        // login_page로 redirect 코드 필요
-        }
-         else {
+            fetch(`http://localhost:8080/api/users/id`)
+                .then((response) => {
+                    // 응답이 성공적이면 JSON으로 변환
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok.');
+                    }
+                    return response.json();
+                })
+                .then((result) => {
+                    // 'result'는 JSON 객체입니다. 이를 변수에 저장하고 사용합니다.
+                    let userId = result; // 데이터를 적절히 가공하여 저장
+                    console.log(userId); // 콘솔에 저장된 데이터 출력
+                    fetch(`http://localhost:8080/api/likes/${userId}/product/${productID}`, {
+                            method: 'post',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                user_id: userId,
+                                product_id: productID
+                            })
+                        })
+                        .then((response) => {
+                            // 응답이 성공적이면 JSON으로 변환
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok.');
+                            }
+                            return response.json();
+                        })
+                        .then((result) => console.log(result));
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        } else if (isAuthenticated === false) {
+            alert("찜하기는 로그인 이후에 가능합니다.");
+            // login_page로 redirect 코드 필요
+        } else {
             heartIcon.setAttribute('src', heartEmpty); // 빈 하트 이미지로 변경
             // userid, productid를 사용해서 찜목록 해제 delete fetch 코드 필요
         }

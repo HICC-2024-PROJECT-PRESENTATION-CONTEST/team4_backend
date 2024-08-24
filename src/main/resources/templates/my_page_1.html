@@ -1,77 +1,60 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Page 1</title>
-    <link rel="stylesheet" href="css/my_page_1.css" />
-    <link rel="stylesheet" type="text/css" href="css/header.css" />
-    <link rel="stylesheet" type="text/css" href="css/footer.css" />
-    <script defer src="/js/header_button.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search result</title>
+    <link rel = "stylesheet" type = "text/css" href = "css/my_page_1.css">
+    <link rel = "stylesheet" type = "text/css" href = "css/header.css">
+    <link rel = "stylesheet" type = "text/css" href = "css/footer.css">
+    <script defer src="js/header_button.js"></script>
     <script defer src="/js/my_page_1.js"></script>
 </head>
 <body>
 <header>
-    <div class="container">
-        <div id="page-logo">
-            <div id="home">
-                <img src="img/home.png" alt="home" />
-            </div>
-            <div id="logo">
-                <img src="img/log.png" alt="Logo" />
-            </div>
-            <div id="my">
-                <img src="img/login.png" alt="my" />
-            </div>
+    <div id="page-logo">
+        <div id="home">
+            <img src="img/home.png" alt="home" />
         </div>
-        <div id="search">
-            <form id="search-form" action="" method="get">
-                <input id="search-txt" type="text" placeholder="원하는 상품을 검색해보세요!"/>
-                <button id="search-btn" type="submit">
-                    <img src="img/search.png" />
-                </button>
-            </form>
+        <div id="logo">
+            <img src="img/log.png" alt="Logo" />
         </div>
+        <div id="my">
+            <img src="img/login.png" alt="my" />
+        </div>
+    </div>
+    <div id="search">
+        <form id = "search-form" action="" method="get">
+            <input id="search-txt" type="text" name="" placeholder="원하는 상품을 검색해보세요!"/>
+            <button id="search-btn" type="submit">
+                <img src="img/search.png" />
+            </button>
+        </form>
     </div>
 </header>
-
-<div class="container">
-    <div class="main-content">
-        <h1>마이페이지</h1>
-        <div class="wishlist-section">
-            <div class="wishlist-title">
-                <span>찜 목록</span>
-                <a href="#">더 보기</a>
-            </div>
-            <div class="wishlist-items">
-                <div class="item">
-                    <img src="https://via.placeholder.com/150" alt="Item 1">
-                    <p>Item 1 Description</p>
-                    <span>$10</span>
+<aside class ="c_2">
+</aside>
+<section class = "c_8">
+    <h5 id = "prd-count">검색된 상품 <span id = "count"></span>개</h5>
+    <div id = "search-list">
+        <template id="product-template">
+            <ul class="item">
+                <div class="img-wrapper">
+                    <li><img class="image" src="" alt="Product Image"></li>
                 </div>
-                <div class="item">
-                    <img src="https://via.placeholder.com/150" alt="Item 2">
-                    <p>Item 2 Description</p>
-                    <span>$20</span>
-                </div>
-                <div class="item">
-                    <img src="https://via.placeholder.com/150" alt="Item 3">
-                    <p>Item 3 Description</p>
-                    <span>$30</span>
-                </div>
-            </div>
-        </div>
-        <div class="account-actions">
-            <button id="logoutButton">로그아웃</button>
-            <button id="deleteAccountButton">회원 탈퇴</button>
-        </div>
+                <li class="brand-name"></li>
+                <li class="prd-name"></li>
+                <li><span class="discount-rate"></span><span class="price"></span></li>
+            </ul>
+        </template>
     </div>
-</div>
 
-<footer>
-    <div class="container">
-        <p><a href="#">개인정보처리방침</a></p>
-    </div>
+
+</section>
+<aside class = "c_2">
+</aside>
+<footer class = "c_12">
+    <p><a href = "#">개인정보처리방침</a><p>
 </footer>
 </body>
 </html>
