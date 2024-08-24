@@ -25,7 +25,7 @@ public class UserController {
 		String email = authentication.getName();
 		User user = userService.findByEmail(email)
 			.orElseThrow(() -> new RuntimeException("User not found"));
-		return ResponseEntity.ok(new UserDto(user.getEmail()));
+		return ResponseEntity.ok(new UserDto(user.getUserId(), user.getEmail()));
 	}
 
 	// 사용자 탈퇴
@@ -48,6 +48,16 @@ public class UserController {
 		String email = authentication.getName();
 		User user = userService.findByEmail(email)
 			.orElseThrow(() -> new RuntimeException("User not found"));
-		return ResponseEntity.ok(new UserDto(user.getEmail()));
+		return ResponseEntity.ok(new UserDto(user.getUserId(), user.getEmail()));
+	}
+
+	// 사용자 ID를 반환하는 엔드포인트
+	@GetMapping("/id")
+	public ResponseEntity<UserDto> getUserId() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String email = authentication.getName();
+		User user = userService.findByEmail(email)
+			.orElseThrow(() -> new RuntimeException("User not found"));
+		return ResponseEntity.ok(new UserDto(user.getUserId(), user.getEmail()));
 	}
 }
