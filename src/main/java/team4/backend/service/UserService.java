@@ -29,4 +29,10 @@ public class UserService {
 	public void deleteByEmail(String email) {
 		userRepository.deleteByEmail(email);
 	}
+
+	public Long getUserId() {
+		User user = userRepository.findFirstByOrderByUserIdAsc()
+			.orElseThrow(() -> new IllegalStateException("No users found in the database"));
+		return user.getUserId();
+	}
 }
