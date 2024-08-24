@@ -24,9 +24,6 @@ public class User {
 	@Column(name = "provider_id")
 	private String providerId; // OAuth2 사용자 ID
 
-	@Column(nullable = false, unique = true)
-	private String username; // username 필드 추가
-
 	// 테스트용 생성자
 	public User(String email) {
 		this.email = email;

@@ -29,10 +29,4 @@ public class UserService {
 	public void deleteByEmail(String email) {
 		userRepository.deleteByEmail(email);
 	}
-
-	// username을 통해 사용자 정보를 찾는 메소드
-	public Optional<User> findByUsername(String username) {
-		return userRepository.findByUsername(username);
-	}
-
 }
