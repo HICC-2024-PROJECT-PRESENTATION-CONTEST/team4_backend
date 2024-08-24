@@ -5,6 +5,7 @@ const productID = urlParts[urlParts.length - 1]; // 마지막 부분이 productI
 
 const fetchUrl = `http://localhost:8080/api/product/search/${productID}`;
 console.log(fetchUrl); // URL 확인
+
 fetch(fetchUrl)
     .then((response) => {
         if (!response.ok) {
@@ -37,7 +38,38 @@ function processData(data) {
 
     const price = document.getElementById('prc');
     price.textContent = `${data.price.toLocaleString()}원`
+
+    const musinsaLinkElement = document.getElementById('musinsa-link');
+    musinsaLinkElement.onclick = function() {
+            window.open(data.productURL);
+        };
+
 }
+
+const categoryUrl = `http://localhost:8080/api/product/1/category`;
+
+fetch(categoryUrl)
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        return response.json();
+    })
+    .then((result) => {
+        console.log(result); // 전체 result 객체를 출력하여 구조 확인
+        let data = result.data; // data가 있는지 확인하며 접근
+        console.log(data); // data 값을 확인
+        processCategory(data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+
+function processCategory(data) {
+    const category = document.getElementById('ctg');
+    category.textContent = data;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const heartIcon = document.querySelector('#heart');
 
