@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentSrc.includes(heartEmpty) && isAuthenticated) {
             heartIcon.setAttribute('src', heartFilled); // 채워진 하트 이미지로 변경
             // userid, productid를 사용해서 찜목록 추가 post fetch 코드 필요
+            fetch('/api/likes/{userId}/product/{productId}')
         }
         else if (isAuthenticated === false) {
         alert("찜하기는 로그인 이후에 가능합니다.");
