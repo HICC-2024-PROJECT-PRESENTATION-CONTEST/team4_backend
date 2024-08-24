@@ -249,3 +249,23 @@ section .price{
 .discount-rate {
     color:#ff7777;
 }
+/* Account Actions */
+.account-actions {
+   display:inline-block;
+    margin-top:450px;
+    margin-left:160px;
+}
+
+.account-actions button {
+    background-color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    color: #000000;
+    font-size: 1vw;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.account-actions button:hover {
+    background-color: #656565;
+}
