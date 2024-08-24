@@ -30,9 +30,9 @@ public class UserService {
 		userRepository.deleteByEmail(email);
 	}
 
-	// username을 통해 사용자 정보를 찾는 메소드
-	public Optional<User> findByUsername(String username) {
-		return userRepository.findByUsername(username);
+	public Long getUserId() {
+		User user = userRepository.findFirstByOrderByUserIdAsc()
+			.orElseThrow(() -> new IllegalStateException("No users found in the database"));
+		return user.getUserId();
 	}
-
 }

@@ -3,57 +3,58 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script defer src="js/header_button.js"></script>
-  <Title>Detail</Title>
-  <link rel = "stylesheet" type = "text/css" href = "css/detail.css">
-  <link rel = "stylesheet" type = "text/css" href = "css/header.css">
-  <link rel = "stylesheet" type = "text/css" href = "css/footer.css">
+  <title>Search result</title>
+  <link rel = "stylesheet" type = "text/css" href = "/css/detail.css">
+  <link rel = "stylesheet" type = "text/css" href = "/css/header.css">
+  <link rel = "stylesheet" type = "text/css" href = "/css/footer.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+  <script defer src="/js/header_button.js"></script>
+  <script defer src="/js/detail.js"></script>
 </head>
 <body>
 <header>
-  <div id = page-logo>
+  <div id="page-logo">
     <div id="home">
-      <img src="img/홈버튼.PNG" alt="home">
+      <img src="/img/home.png" alt="home" />
     </div>
     <div id="logo">
-      <img src="img/임시로고.PNG" alt="Logo">
+      <img src="/img/log.png" alt="Logo" />
     </div>
     <div id="my">
-      <img src="img/마이페이지.PNG" alt="my">
+      <img src="/img/login.png" alt="my" />
     </div>
   </div>
   <div id="search">
-    <form action="" method="get">
-      <input class="search-txt" type="text" name="" placeholder="원하는 상품을 검색해보세요!">
-      <button class="search-btn" type="submit">
-        <img src="img/돋보기.png">
+    <form id = "search-form" action="" method="get">
+      <input id="search-txt" type="text" name="" placeholder="원하는 상품을 검색해보세요!"/>
+      <button id="search-btn" type="submit">
+        <img src="/img/search.png" />
       </button>
     </form>
   </div>
 </header>
 <aside class = "c_5">
   <ul>
-    <li class = "img"><img src = "img/임시이미지.png"></li>
+    <li class = "img"><img id = "image"></li>
   </ul>
 </aside>
 <section class = "c_7">
   <div id = "category">
-    <a href = "#">카테고리 1</a> > <a href = "#">카테고리 2</a> > <a href = "#">카테고리 3</a> > <a href = "#">카테고리 4</a>
+    <span id = "ctg">카테고리</span>
   </div>
   <div id = "heart-container">
-    <img id = "heart" src="img/찜하기.png" alt ="heart">
+    <img id = "heart" src="/img/heart.png" alt ="heart">
   </div>
   <div id = "prd-name">
-    <a href = "#">브랜드명</a> | ACG Cinder Cone 윈드프루프 재킷 M - 썬더 블루:데이브레이크:서밋 화이트 / DB0979-437
+    <a href = "#"><span id = "brand-name">브랜드명</span></a> | <span id = "product-name">ACG Cinder Cone 윈드프루프 재킷 M - 썬더 블루:데이브레이크:서밋 화이트 / DB0979-437</span>
   </div>
   <div id = "link_and_price">
-    <div id = "musinsa-link" style=" cursor: pointer;" onclick="window.open('#');">
+    <div id = "musinsa-link" style=" cursor: pointer;">
       <span style = "color:#000000; line-height:35px;"><b>구매링크</b></span>
     </div>
     <div id = "price">
-      <span style = "color:#ff7777";>X%  </span><b>x,xxx원</b>
+      <span id = "discount-rate" style = "color:#ff7777">X%</span>&nbsp;<span id = "prc"><b>x,xxx원</b></span>
     </div>
   </div>
   <div id="price-graph">
@@ -150,10 +151,10 @@
     </script>
   </div>
   <div id = "price-avg">
-    <p style="line-height:30px;">정가 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: xx,xxx원</p>
-    <p style='line-height:30px;'>최고 할인가 &nbsp;: xx,xxx원</p>
-    <p style='line-height:30px;'>최저 할인가 &nbsp;: xx,xxx원</p>
-    <p style='line-height:30px;'>평균 가격 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: xx,xxx원</p>
+    <p style="line-height:30px;">정가 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 14,700원</p>
+    <p style='line-height:30px;'>최고 할인가 &nbsp;: 12,800원</p>
+    <p style='line-height:30px;'>최저 할인가 &nbsp;: 21,900원</p>
+    <p style='line-height:30px;'>평균 가격 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 16,025원</p>
     <hr>
   </div>
 </section>
@@ -165,8 +166,6 @@
 <aside class = "c_3"></aside>
 <footer class = "c_12">
   <p><a href = "#">개인정보처리방침</a></p>
-  <p>email : <a href = "#">1234@gmail.com</a></p>
 </footer>
-<script src="js/detail.js"></script>
 </body>
 </html>

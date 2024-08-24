@@ -25,7 +25,7 @@ public class UserController {
 		String email = authentication.getName();
 		User user = userService.findByEmail(email)
 			.orElseThrow(() -> new RuntimeException("User not found"));
-		return ResponseEntity.ok(new UserDto(user.getEmail()));
+		return ResponseEntity.ok(new UserDto(user.getUserId(), user.getEmail()));
 	}
 
 	// 사용자 탈퇴
@@ -48,17 +48,11 @@ public class UserController {
 		String email = authentication.getName();
 		User user = userService.findByEmail(email)
 			.orElseThrow(() -> new RuntimeException("User not found"));
-		return ResponseEntity.ok(new UserDto(user.getEmail()));
+		return ResponseEntity.ok(new UserDto(user.getUserId(), user.getEmail()));
 	}
 
-	// 이메일 알림 설정 변경
-	@PostMapping("/email-notification")
-	public ResponseEntity<Void> updateEmailNotification(@RequestBody boolean emailNotification) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String email = authentication.getName();
-		User user = userService.findByEmail(email)
-			.orElseThrow(() -> new RuntimeException("User not found"));
-		userService.save(user);
-		return ResponseEntity.ok().build();
+	@GetMapping("/id")
+	public Long getUserId() {
+		return userService.getUserId();
 	}
 }

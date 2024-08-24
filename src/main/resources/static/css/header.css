@@ -11,6 +11,10 @@ header #logo {
     display: inline-block;
 }
 
+header #logo img{
+    width: 100%;
+}
+
 header #home {
     width: 20%;
     display: inline-block;
@@ -38,7 +42,7 @@ header #my {
 #search {
 }
 
-.search-txt {
+#search-txt {
     position: relative;
     left: 20px;
     height: 50px;
@@ -51,7 +55,7 @@ header #my {
     border: none;
 }
 
-.search-btn {
+#search-btn {
     position: relative;
     right: 30px;
     top: 7px;
@@ -60,7 +64,7 @@ header #my {
     background-color: #ffffff;
 }
 
-.search-btn img {
+#search-btn img {
     position: relative;
     height: 25px;
 }

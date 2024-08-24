@@ -1,45 +1,53 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/login_page.css">
-  <title>Login Page</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" type="text/css" href="css/header.css" />
+    <link rel="stylesheet" type="text/css" href="css/footer.css" />
+    <script defer src="/js/header_button.js"></script>
 </head>
-<body>
-<header>
-  <div class="header-content">
-    <div class="home-icon" onclick="goToHome()">
-      <img src="/img/home.png" alt="Home Icon">
+  <body>
+    <header>
+      <div id="page-logo">
+        <div id="home">
+          <img src="img/home.png" alt="home" />
+        </div>
+        <div id="logo">
+          <img src="img/log.png" alt="Logo" />
+        </div>
+        <div id="my">
+          <img src="img/login.png" alt="my" />
+        </div>
+      </div>
+<!--      <div id="search">-->
+<!--        <form id = "search-form" action="" method="get">-->
+<!--          <input id="search-txt" type="text" name="" placeholder="원하는 상품을 검색해보세요!"/>-->
+<!--          <button id="search-btn" type="submit">-->
+<!--            <img src="img/search.png" />-->
+<!--          </button>-->
+<!--        </form>-->
+<!--      </div>-->
+    </header>
+
+    <div class="container">
+      <div class="login-box">
+        <h1>로그인</h1>
+        <p>로그인 시 관심 상품 모아보기 및 가격 변동 알림 수신이 가능합니다.</p>
+        <button class="login-button google" onclick="loginWithGoogle()">
+          <img src="img/google.png" alt="Google" />
+          Google로 계속하기
+        </button>
+      </div>
+      <div class="signup-prompt">
+        <p>계정이 없으신가요? <a href="#" onclick="loginWithGoogle()">회원가입</a></p>
+      </div>
     </div>
-    <div class="profile-icon" id="login-button">
-      <img src="/img/profile.png" alt="Profile Icon">
-    </div>
-  </div>
-</header>
 
-<div class="search-bar">
-  <input type="text" placeholder="원하는 상품을 검색해보세요!" id="search-input">
-  <button class="search-button" onclick="searchProduct()">
-    <img src="/img/search.png" alt="Search Icon">
-  </button>
-</div>
-
-<div class="container">
-  <div class="login-box">
-    <h1>로그인 및 회원가입</h1>
-    <p>로그인 시 관심 상품 모아보기가 가능합니다.</p>
-    <button class="login-button google" onclick="loginWithGoogle()">
-      Google로 계속하기<br>
-      <span class="subtext">! 가격변동 안내 메일을 받을 수 있어요 !</span>
-    </button>
-  </div>
-</div>
-
-<footer>
-  <p>무신사스카우터에서 제공하는 제품의 가격과 정보는 주기적으로 업데이트 되고 있습니다.</p>
-</footer>
-
-<script src="/js/script.js"></script>
-</body>
+    <footer>
+      <p><a href="#">개인정보처리방침</a></p>
+    </footer>
+  </body>
 </html>
