@@ -57,6 +57,25 @@ function processData(products) {
          discountRateElement.textContent = product.discountRate;
          priceElement.textContent = `${product.price.toLocaleString()}원`;
 
+        // productID를 data attribute에 저장
+        imageElement.dataset.productId = product.id;
+
+        // 클릭 이벤트 추가
+        imageElement.addEventListener('click', function() {
+            const productId = this.dataset.productId;
+            window.location.href = `http://localhost:8080/product/${productId}`;
+        });
+
+
+        // productID를 data attribute에 저장
+        productNameElement.dataset.productId = product.id;
+
+        // 클릭 이벤트 추가
+        productNameElement.addEventListener('click', function() {
+            const productId = this.dataset.productId;
+            window.location.href = `http://localhost:8080/product/${productId}`;
+        });
+
          // 부모 컨테이너에 추가
          container.appendChild(clone);
      });

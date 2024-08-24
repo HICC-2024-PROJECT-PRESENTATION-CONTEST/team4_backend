@@ -40,7 +40,7 @@ function processData(data) {
     price.textContent = `${data.price.toLocaleString()}원`
 
     const musinsaLinkElement = document.getElementById('musinsa-link');
-    musinsaLinkElement.onclick = function() {
+        musinsaLinkElement.onclick = function() {
             window.open(data.productURL);
         };
 
@@ -84,10 +84,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const heartFilled = '/img/heartc.png';
 
         // src가 빈 하트 이미지인지 확인하고 이미지 변경
-        if (currentSrc.includes(heartEmpty)) {
+        const isAuthenticated = localStorage.getItem('jwtToken') !== null;
+        if (currentSrc.includes(heartEmpty) && isAuthenticated) {
             heartIcon.setAttribute('src', heartFilled); // 채워진 하트 이미지로 변경
-        } else {
+            // userid, productid를 사용해서 찜목록 추가 post fetch 코드 필요
+        }
+        else if (isAuthenticated === false) {
+        alert("찜하기는 로그인 이후에 가능합니다.");
+        // login_page로 redirect 코드 필요
+        }
+         else {
             heartIcon.setAttribute('src', heartEmpty); // 빈 하트 이미지로 변경
+            // userid, productid를 사용해서 찜목록 해제 delete fetch 코드 필요
         }
     }
 });
